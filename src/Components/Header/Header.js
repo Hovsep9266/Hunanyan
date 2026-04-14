@@ -26,8 +26,36 @@ export const Header = ({
   const location = useLocation();
 
   const [showMenu, setShowMenu] = useState(false);
+  const [showMobileCategories, setShowMobileCategories] = useState(false);
+  const [isMobileCategoryMode, setIsMobileCategoryMode] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 992 : false,
+  );
   const menuRef = useRef(null);
   const { t } = useI18n();
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category.id);
+    setFindId(category.id);
+    setGenreName(category.name);
+    if (isMobileCategoryMode) {
+      setShowMobileCategories(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 992;
+      setIsMobileCategoryMode(mobile);
+      if (!mobile) {
+        setShowMobileCategories(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!location.pathname.startsWith("/category/")) {
@@ -38,6 +66,7 @@ export const Header = ({
   useEffect(() => {
     if (showMenu) {
       document.body.classList.add("no-scroll");
+      setShowMobileCategories(false);
       setTimeout(() => menuRef.current?.focus(), 60);
     } else {
       document.body.classList.remove("no-scroll");
@@ -107,7 +136,6 @@ export const Header = ({
           </svg>
         </Link>
         <div className="orderInput">
-          {/* </button> */}
           <div className="SearchMovie">
             <input
               className="search"
@@ -130,23 +158,68 @@ export const Header = ({
             )}
           </div>
 
-          <svg
+          <button
+            type="button"
+            onClick={() => setShowMobileCategories((prev) => !prev)}
+            className="categoryToggleButton mobileOnly"
+            aria-label={showMobileCategories ? "Close categories" : "Open categories"}
+            aria-expanded={showMobileCategories}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="Layer_1"
+              data-name="Layer 1"
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              className="headerIcon"
+            >
+              <path d="M24,12c0,1.65-1.35,3-3,3h-5c-1.65,0-3-1.35-3-3s1.35-3,3-3h5c1.65,0,3,1.35,3,3Zm-8-6h5c1.65,0,3-1.35,3-3s-1.35-3-3-3h-5c-1.65,0-3,1.35-3,3s1.35,3,3,3Zm5,12h-5c-1.65,0-3,1.35-3,3s1.35,3,3,3h5c1.65,0,3-1.35,3-3s-1.35-3-3-3Zm-10-1v3c0,2.21-1.79,4-4,4h-3c-2.21,0-4-1.79-4-4v-3c0-2.21,1.79-4,4-4h3c2.21,0,4,1.79,4,4Zm-3,0c0-.55-.45-1-1-1h-3c-.55,0-1,.45-1,1v3c0,.55,.45,1,1,1h3c.55,0,1-.45,1-1v-3Zm3-13v3c0,2.21-1.79,4-4,4h-3C1.79,11,0,9.21,0,7v-3C0,1.79,1.79,0,4,0h3c2.21,0,4,1.79,4,4Zm-3,0c0-.55-.45-1-1-1h-3c-.55,0-1,.45-1,1v3c0,.55,.45,1,1,1h3c.55,0,1-.45,1-1v-3Z" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
             onClick={() => setShowMenu((prev) => !prev)}
-            xmlns="http://www.w3.org/2000/svg"
-            id="Outline"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            className="menuSvg"
+            className="menuButton"
             aria-label={showMenu ? "Close menu" : "Open menu"}
             aria-expanded={showMenu}
-            role="button"
-            tabIndex={0}
           >
-            <rect y="11" width="24" height="2" rx="1" />
-            <rect y="4" width="24" height="2" rx="1" />
-            <rect y="18" width="24" height="2" rx="1" />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="Outline"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              className="headerIcon"
+            >
+              <rect y="11" width="24" height="2" rx="1" />
+              <rect y="4" width="24" height="2" rx="1" />
+              <rect y="18" width="24" height="2" rx="1" />
+            </svg>
+          </button>
+
+          {isMobileCategoryMode && showMobileCategories && (
+            <div className="mobileCategoryDropdown">
+              <div className="mobileCategoryTitle">{t("header.category")}</div>
+              <div className="categorys mobileCategorys">
+                {selectGenre.map((category) => {
+                  const isSelected = selectedCategory === category.id;
+
+                  return (
+                    <Link
+                      to={`/category/${category.name}`}
+                      className={`${isSelected ? "activeGenre" : "genre"}`}
+                      key={category.id}
+                      onClick={() => handleCategorySelect(category)}
+                    >
+                      {category.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {showMenu && (
             <>
@@ -167,7 +240,7 @@ export const Header = ({
           )}
         </div>
       </div>
-      <div>
+      <div className={`categoriesBlock ${isMobileCategoryMode ? "hideOnMobile" : ""}`}>
         <h1>{t("header.category")}</h1>
 
         <div className="categorys">
@@ -179,11 +252,7 @@ export const Header = ({
                 to={`/category/${category.name}`}
                 className={`${isSelected ? "activeGenre" : "genre"}`}
                 key={category.id}
-                onClick={() => {
-                  setSelectedCategory(category.id);
-                  setFindId(category.id);
-                  setGenreName(category.name);
-                }}
+                onClick={() => handleCategorySelect(category)}
               >
                 {category.name}
               </Link>

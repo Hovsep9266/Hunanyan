@@ -10,8 +10,8 @@ export const SearchFilm = ({
   setSelectFilm,
 }) => {
   const { t } = useI18n();
-
-  if (!films || films.length === 0) return <h2>{t("search.noFilms")}</h2>;
+  const hasFilms = Array.isArray(films) && films.length > 0;
+  const visibleFilms = hasFilms ? films.slice(0, 8) : [];
 
   const handleFilmClick = (filmId) => {
     setSelectFilm(null);
@@ -24,22 +24,26 @@ export const SearchFilm = ({
   return (
     <div className="MainSearch">
       <div className="SearchFilm">
-        {films.map((film) => (
-          <Link
-            to={`/film/${film.id}`}
-            key={film.id}
-            className="filmItem"
-            onClick={() => handleFilmClick(film.id)}
-          >
-            <img src={film.imgPoster} alt={film.aka} width={40} height={45} />
-            <div className="nameActor">
-              <span className="filmName">{film.aka}</span>
-              <span className="actors">
-                {t("search.actors")} {film.actors}
-              </span>
-            </div>
-          </Link>
-        ))}
+        {hasFilms ? (
+          visibleFilms.map((film) => (
+            <Link
+              to={`/film/${film.id}`}
+              key={film.id}
+              className="filmItem"
+              onClick={() => handleFilmClick(film.id)}
+            >
+              <img src={film.imgPoster} alt={film.aka} width={40} height={45} />
+              <div className="nameActor">
+                <span className="filmName">{film.aka}</span>
+                <span className="actors">
+                  {t("search.actors")} {film.actors}
+                </span>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className="searchEmpty">{t("search.noFilms")}</div>
+        )}
       </div>
     </div>
   );

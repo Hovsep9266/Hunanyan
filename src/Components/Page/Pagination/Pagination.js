@@ -1,10 +1,25 @@
 import { Link } from "react-router-dom";
 import "./Pagination.css";
 import { useI18n } from "../../../i18n/I18nProvider";
+import { useEffect, useState } from "react";
 
 export default function Pagination({ currentPage, totalPages, onPageChange }) {
   const { t } = useI18n();
-  const maxVisible = 10;
+  const [maxVisible, setMaxVisible] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 480 ? 5 : 10,
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxVisible(window.innerWidth <= 480 ? 5 : 10);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const getPageNumbers = () => {
     const pages = [];
 
@@ -45,9 +60,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
 
       {pages[pages.length - 1] < totalPages && (
         <>
-          <span className="px-2">…</span>
+          <span className="pageEllipsis">…</span>
           <Link
-            to={`/${currentPage}`}
+            to={`/${totalPages}`}
             className="button"
             onClick={() => {
               onPageChange(totalPages);
@@ -58,7 +73,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
         </>
       )}
       <Link
-        to={`/${currentPage + 1}`}
+        to={`/${Math.min(currentPage + 1, totalPages)}`}
         onClick={() =>
           currentPage < totalPages && onPageChange(currentPage + 1)
         }

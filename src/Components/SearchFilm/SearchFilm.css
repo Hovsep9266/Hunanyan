@@ -1,30 +1,38 @@
 .MainSearch{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    z-index: 1200;
 }
 
 .SearchFilm{
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 5px;
+    padding: 6px;
     border: 2px outset rgb(244, 244, 244);
-    background-color: rgb(0, 0, 0);
-    position: absolute;
-    right: 2px;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: static;
+    width: 100%;
+    max-height: 420px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    animation: searchDropdownIn 0.18s ease-out;
 }
 
 .filmItem{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px;
+    justify-content: flex-start;
+    gap: 10px;
     background-color: white;
     border: 2px inset rgb(0, 0, 0);
-
-    padding: 0 10px;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 6px;
 }
 
 .filmItem:hover{
@@ -40,19 +48,23 @@
     align-items: flex-start;
     color: #3c3c3c;
     font-family: 'Courier New', Courier, monospace;
-    position: relative;
-    margin-top: 5px;
+    min-width: 0;
+    gap: 2px;
+    margin-top: 0;
 }
 
 .filmName{
-    font-size: 10px;
-    position: absolute;
-    top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .actors{
-    font-size: 8px;
+    font-size: 10px;
     text-decoration-line: none;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .Watch{
@@ -60,4 +72,66 @@
     border: 2px solid rgb(160, 160, 160);
     padding: 20px;
     border-radius: 10px;
+}
+
+.searchEmpty{
+  margin-top: 2px;
+  text-align: left;
+  font-size: 14px;
+  color: white;
+  padding: 10px 12px;
+}
+
+@keyframes searchDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 993px) {
+  .filmItem {
+    gap: 8px;
+    padding: 5px 10px;
+  }
+
+  .filmItem img {
+    width: 38px;
+    height: 42px;
+    object-fit: cover;
+  }
+
+  .nameActor {
+    max-width: calc(100% - 52px);
+  }
+
+  .filmName,
+  .actors {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 768px) {
+  .MainSearch{
+    top: calc(100% + 6px);
+  }
+
+  .SearchFilm {
+    width: 100%;
+    max-height: 300px;
+  }
+
+  .filmName{
+    font-size: 12px;
+  }
+
+  .actors{
+    font-size: 10px;
+  }
 }

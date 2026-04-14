@@ -4,9 +4,9 @@
 
 .films {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
 }
 
 .film-item {
@@ -25,4 +25,16 @@
 .film-item img {
   width: 100%;
   border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .CategoryMovies {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .films {
+    grid-template-columns: 1fr;
+  }
 }

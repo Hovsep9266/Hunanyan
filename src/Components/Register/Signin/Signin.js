@@ -15,6 +15,8 @@ export const Signin = ({
   setUserAccount,
   showRegister,
   setShowDisplay,
+  inline = false,
+  onBack,
 }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -57,17 +59,8 @@ export const Signin = ({
 
   console.log(showRegister);
 
-  return (
-    // pass the register setter and the wrapper display setter so closing hides everything
-    <Modal
-      className="Register"
-      setShowRegister={setShowRegister}
-      setShowDisplay={setShowDisplay}
-      onClose={() => {
-        setShowDisplay?.(false);
-        setShowRegister?.(false);
-      }}
-    >
+  const content = (
+    <>
       <form className="registerForm" onSubmit={onSubmit}>
         <h2>{t("auth.signupTitle")}</h2>
         <input
@@ -125,7 +118,10 @@ export const Signin = ({
             type="button"
             className="right"
             onClick={() => {
-              // close full wrapper
+              if (inline) {
+                onBack?.();
+                return;
+              }
               setShowDisplay?.(false);
               setShowRegister?.(false);
             }}
@@ -150,7 +146,6 @@ export const Signin = ({
               setObject([...(object || []), newUser]);
               setUserAccount({ name, email });
               setShowError(false);
-              setShowDisplay?.(false);
               setShowRegister(show.sendCode);
               console.log("verification code:", code);
             }}
@@ -171,6 +166,24 @@ export const Signin = ({
           code={code}
         />
       )}
+    </>
+  );
+
+  if (inline) {
+    return content;
+  }
+
+  return (
+    <Modal
+      className="Register"
+      setShowRegister={setShowRegister}
+      setShowDisplay={setShowDisplay}
+      onClose={() => {
+        setShowDisplay?.(false);
+        setShowRegister?.(false);
+      }}
+    >
+      {content}
     </Modal>
   );
 };

@@ -99,3 +99,28 @@ input:hover{
 .wrongError{
     height: 40px;
 }
+
+@media (max-width: 428px) {
+  .registerForm {
+    width: 100%;
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .registerForm h1,
+  .registerForm h2 {
+    font-size: 20px;
+  }
+
+  input,
+  .right,
+  .disabled {
+    height: 34px;
+    font-size: 13px;
+    border-width: 1px;
+  }
+
+  .wrongError {
+    height: 34px;
+  }
+}

@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  gap: 12px;
 }
 
 .headerLeft{
@@ -26,6 +27,77 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  position: relative;
+}
+
+.menuButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.categoryToggleButton{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.menuButton:hover{
+  background-color: rgba(255, 255, 255, 0.12);
+  transition: 0.25s;
+}
+
+.categoryToggleButton:hover{
+  background-color: rgba(255, 255, 255, 0.12);
+  transition: 0.25s;
+}
+
+.headerIcon{
+  fill: rgb(255, 255, 255);
+  width: 24px;
+  height: 24px;
+}
+
+.mobileCategoryDropdown{
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(360px, 100vw - 20px);
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.95);
+  z-index: 1002;
+}
+
+.mobileCategoryTitle{
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.mobileCategorys{
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+
+.categoriesBlock.hideOnMobile{
+  display: none;
 }
 
 .ordersLink{
@@ -50,10 +122,10 @@
 
 .categorys{
   width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin: 20px 0;
 }
 
 .genre{
@@ -61,8 +133,8 @@
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  width: 140px;
-  height: 40px;
+  width: 100%;
+  min-height: 40px;
   border: 2px outset black;
   background-color: rgba(128, 128, 128, 0);
   color: white;
@@ -79,8 +151,8 @@
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  width: 140px;
-  height: 40px;
+  width: 100%;
+  min-height: 40px;
   border: 2px outset black;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -93,7 +165,7 @@
 }
 
 .HH{
-  font-size: 100px;
+  font-size: clamp(40px, 12vw, 100px);
   font-weight: bold;
   font-style: italic;
   font-family: 'Courier New', Courier, monospace;
@@ -112,13 +184,15 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  position: relative;
+  width: 300px;
 }
 
 .search{
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0);
     border: 2px solid rgb(160, 160, 160);
-    width: 230px;
+    width: 100%;
     height: 40px;
     padding: 5px 10px;
     color: rgb(160, 160, 160);
@@ -184,3 +258,78 @@ body.no-scroll{
   overflow: hidden;
 }
 
+@media (max-width: 992px) {
+  .categorys {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .headerTop {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .headerLeft,
+  .SearchMovie {
+    width: 100%;
+    align-items: center;
+  }
+
+  .search {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .orderInput {
+    flex-wrap: wrap;
+  }
+
+  .categorys {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .ordersLink {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .categorys {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .orderInput {
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .SearchMovie {
+    flex: 1;
+    max-width: calc(100% - 104px);
+  }
+
+  .menuButton {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .categoryToggleButton {
+    display: flex;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .mobileCategoryDropdown{
+    right: 0;
+    left: 0;
+    width: 100%;
+    top: calc(100% + 6px);
+  }
+}

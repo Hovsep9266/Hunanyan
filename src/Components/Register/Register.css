@@ -35,3 +35,18 @@
     transition: 0.5s;
 }
 
+@media (max-width: 428px) {
+  .registerButtons {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .signbutton {
+    height: 34px;
+    font-size: 13px;
+    border-width: 1px;
+  }
+}
+

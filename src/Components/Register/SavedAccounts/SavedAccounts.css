@@ -94,3 +94,23 @@
     background-color: rgba(0, 0, 0, 0.238);
     transition: 0.5s;
 }
+
+@media (max-width: 428px) {
+  .savedAccountsList {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .savedAccount {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .savedAccount button,
+  .signbutton {
+    height: 32px;
+    font-size: 12px;
+    padding: 4px 6px;
+    border-width: 1px;
+  }
+}

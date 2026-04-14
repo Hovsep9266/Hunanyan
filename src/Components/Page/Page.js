@@ -61,8 +61,6 @@ function Page({ setValue, setFilmId, setSelectFilm, page, setPage }) {
           >
             <img
               src={GetImgUrl(film.poster_path)}
-              width={200}
-              height={300}
               alt={film.title}
             />
             <div>

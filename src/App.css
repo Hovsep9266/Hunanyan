@@ -1,14 +1,41 @@
 .App {
   text-align: center;
-  padding: 15%;
-  /* background-image: url("https://c4.wallpaperflare.com/wallpaper/821/142/376/lara-croft-rise-of-the-tomb-raider-video-games-face-wallpaper-preview.jpg"); */
-  background-image: url("https://wallpapercave.com/wp/wp1913866.jpg");
+  padding: clamp(12px, 3vw, 32px);
   background-size: cover;
   background-attachment: fixed;
-  color: rgb(229, 229, 229);;
+  color: rgb(229, 229, 229);
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: black;
+
+  @media (min-width: 768px) {
+    background-image: url("https://wallpapercave.com/wp/wp1913866.jpg");
+  }
 }
 
-.selectFilm{
+.App h1 {
+  font-size: clamp(30px, 5.2vw, 56px);
+}
+
+.App h2 {
+  font-size: clamp(22px, 3.6vw, 34px);
+}
+
+.App h3 {
+  font-size: clamp(18px, 2.4vw, 24px);
+}
+
+.App p,
+.App span,
+.App a,
+.App button,
+.App input,
+.App select,
+.App label {
+  font-size: clamp(14px, 1.5vw, 18px);
+}
+
+.selectFilm {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,4 +43,77 @@
   background-color: rgba(63, 63, 63, 0.845);
   padding: 20px;
   min-height: 500px;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .App {
+    background-attachment: scroll;
+    padding: 10px;
+  }
+
+  .selectFilm {
+    border-width: 3px;
+    padding: 12px;
+  }
+
+  .App h1 {
+    font-size: 40px;
+  }
+
+  .App h2 {
+    font-size: 28px;
+  }
+
+  .App p,
+  .App span,
+  .App a,
+  .App button,
+  .App input,
+  .App select,
+  .App label {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App h1 {
+    font-size: 34px;
+  }
+
+  .App h2 {
+    font-size: 24px;
+  }
+
+  .App p,
+  .App span,
+  .App a,
+  .App button,
+  .App input,
+  .App select,
+  .App label {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .App h1 {
+    font-size: 30px;
+  }
+
+  .App h2 {
+    font-size: 21px;
+  }
+
+  .App p,
+  .App span,
+  .App a,
+  .App button,
+  .App input,
+  .App select,
+  .App label {
+    font-size: 13px;
+  }
 }

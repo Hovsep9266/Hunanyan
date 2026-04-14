@@ -11,3 +11,10 @@
     display: flex;
     justify-content: space-between;
 }
+
+@media (max-width: 480px) {
+  .svg {
+    width: 100%;
+    max-width: 260px;
+  }
+}

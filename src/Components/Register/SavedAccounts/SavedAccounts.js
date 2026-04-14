@@ -3,7 +3,13 @@ import { Modal } from "../../Modal/Modal";
 import { useI18n } from "../../../i18n/I18nProvider";
 import "./SavedAccounts.css";
 
-const SavedAccounts = ({ setShowSaved, setUserAccount, setShowDisplay }) => {
+const SavedAccounts = ({
+  setShowSaved,
+  setUserAccount,
+  setShowDisplay,
+  inline = false,
+  onBack,
+}) => {
   const { t } = useI18n();
   const [accounts, setAccounts] = useState([]);
 
@@ -51,43 +57,57 @@ const SavedAccounts = ({ setShowSaved, setUserAccount, setShowDisplay }) => {
     }
   };
 
+  const content = (
+    <div className="savedAccountsList">
+      <div className="userAccount">
+        {accounts && accounts.length ? (
+          accounts.map((acct) => (
+            <div className="savedAccount" key={acct.email}>
+              <div className="meta">
+                <strong>
+                  {acct.name} {acct.surname || ""}
+                </strong>
+                <span>{acct.email}</span>
+              </div>
+              <div className="actions">
+                <button className="useBtn" onClick={() => handleUseAccount(acct)}>
+                  {t("savedAccounts.use")}
+                </button>
+                <button
+                  className="delBtn"
+                  onClick={() => handleDeleteAccount(acct.email)}
+                >
+                  {t("savedAccounts.delete")}
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="noAccounts">{t("savedAccounts.noAccounts")}</div>
+        )}
+      </div>
+      <button
+        className="signbutton"
+        onClick={() => {
+          if (inline) {
+            onBack?.();
+            return;
+          }
+          setShowSaved(false);
+        }}
+      >
+        {t("common.back")}
+      </button>
+    </div>
+  );
+
+  if (inline) {
+    return content;
+  }
+
   return (
     <Modal onClose={() => setShowSaved?.(false)} titleKey="savedAccounts.title">
-      <div className="savedAccountsList">
-        <div className="userAccount">
-          {accounts && accounts.length ? (
-            accounts.map((acct) => (
-              <div className="savedAccount" key={acct.email}>
-                <div className="meta">
-                  <strong>
-                    {acct.name} {acct.surname || ""}
-                  </strong>
-                  <span>{acct.email}</span>
-                </div>
-                <div className="actions">
-                  <button
-                    className="useBtn"
-                    onClick={() => handleUseAccount(acct)}
-                  >
-                    {t("savedAccounts.use")}
-                  </button>
-                  <button
-                    className="delBtn"
-                    onClick={() => handleDeleteAccount(acct.email)}
-                  >
-                    {t("savedAccounts.delete")}
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="noAccounts">{t("savedAccounts.noAccounts")}</div>
-          )}
-        </div>
-        <button className="signbutton" onClick={() => setShowSaved(false)}>
-          {t("common.back")}
-        </button>
-      </div>
+      {content}
     </Modal>
   );
 };

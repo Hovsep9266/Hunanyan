@@ -87,3 +87,25 @@
     font-size: 12px;
     text-align: center;
 }
+
+@media (max-width: 428px) {
+  .Login {
+    width: 100%;
+    padding: 10px;
+    gap: 12px;
+    height: auto;
+  }
+
+  .Login h2 {
+    font-size: 20px;
+  }
+
+  .Login .Button,
+  .right,
+  .disabled,
+  .inputField {
+    height: 34px;
+    font-size: 13px;
+    border-width: 1px;
+  }
+}
