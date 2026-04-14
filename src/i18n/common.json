@@ -1,0 +1,237 @@
+{
+  "en": {
+    "header": {
+      "searchPlaceholder": "SEARCH FILM",
+      "profile": "Profile",
+      "category": "CATEGORY",
+      "yourFavorite": "Your Favorite Film Is Here",
+      "myOrders": "My Orders",
+      "notLoggedIn": "You are not logged in.",
+      "welcome": "Welcome {name}!",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    },
+    "profile": {
+      "title": "Profile",
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "address": "Address",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saved": "Profile saved"
+    },
+    "savedAccounts": {
+      "title": "Saved Accounts",
+      "use": "Use",
+      "delete": "Delete",
+      "noAccounts": "No saved accounts"
+    },
+    "search": {
+      "noFilms": "No films found...",
+      "actors": "Actors:"
+    }
+    ,
+    "common": {
+      "loading": "Loading...",
+      "back": "Back",
+      "prev": "Prev",
+      "next": "Next",
+      "watchHeading": "Watch movies online on HH",
+      "goHome": "Go to Home"
+    }
+    ,
+    "category": {
+      "select": "Select a category",
+      "moviesIn": "Movies in {genre} Category"
+    }
+    ,
+    "notFound": {
+      "title": "Page Not Found",
+      "subtitle": "404",
+      "text": "The page you are looking for does not exist or has been moved.",
+      "button": "Go Back Home"
+    },
+    "orders": {
+      "summary": "Order Summary",
+      "empty": "No saved films yet."
+    },
+    "success": {
+      "title": "Success!",
+      "message": "Your operation was completed successfully.",
+      "button": "Go to Home"
+    },
+    "modal": {
+      "register": "Register"
+    },
+    "footer": {
+      "explore": "Explore thousands of movies, discover genres, and enjoy the best cinema moments.",
+      "followUs": "Follow Us",
+      "rights": "All rights reserved."
+    },
+    "auth": {
+      "loginTitle": "Login",
+      "signupTitle": "Sign Up",
+      "email": "Email",
+      "password": "Password",
+      "back": "Back",
+      "loginButton": "Login",
+      "signupButton": "Sign Up",
+      "invalidCredentials": "Invalid email or password",
+      "passwordsDontMatch": "Passwords do not match",
+      "required": "This field is required",
+      "name": "Name",
+      "surname": "Surname",
+      "confirmPassword": "Confirm Password",
+      "emailInUse": "Email already in use",
+      "invalidEmail": "Wrong email"
+    },
+    "code": {
+      "title": "WRITE CODE",
+      "placeholder": "••••••",
+      "send": "SEND",
+      "error": "Invalid code"
+    }
+    ,
+    "film": {
+      "name": "Name",
+      "productions": "Productions",
+      "date": "Date",
+      "director": "Director",
+      "category": "Category",
+      "country": "Country",
+      "time": "Time",
+      "actorsHeading": "Actors",
+      "description": "Description",
+      "watchOnline": "{name} — Watch Online",
+      "actorsWithCharacters": "Actors with Their Characters",
+      "unknown": "Unknown",
+      "similar": "SIMILAR"
+    }
+    ,
+    "fallbacks": {
+      "noTitle": "No title",
+      "unknown": "Unknown",
+      "noDescription": "No description available"
+    }
+  },
+  "ru": {
+    "header": {
+      "searchPlaceholder": "ПОИСК ФИЛЬМА",
+      "profile": "Профиль",
+      "category": "КАТЕГОРИЯ",
+      "yourFavorite": "Ваш любимый фильм здесь",
+      "myOrders": "Мои заказы",
+      "notLoggedIn": "Вы не вошли в систему.",
+      "welcome": "Добро пожаловать, {name}!",
+      "openMenu": "Открыть меню",
+      "closeMenu": "Закрыть меню"
+    },
+    "search": {
+      "noFilms": "Фильмы не найдены...",
+      "actors": "Актёры:"
+    }
+    ,
+    "common": {
+      "loading": "Загрузка...",
+      "back": "Назад",
+      "prev": "Назад",
+      "next": "Дальше",
+      "watchHeading": "Смотрите фильмы онлайн на HH",
+      "goHome": "Перейти домой"
+    }
+    ,
+    "category": {
+      "select": "Выберите категорию",
+      "moviesIn": "Фильмы в категории {genre}"
+    }
+    ,
+    "notFound": {
+      "title": "Страница не найдена",
+      "subtitle": "404",
+      "text": "Страница, которую вы ищете, не существует или была перемещена.",
+      "button": "Вернуться домой"
+    },
+    "orders": {
+      "summary": "Сводка заказов",
+      "empty": "Сохранённых фильмов нет."
+    },
+    "success": {
+      "title": "Успех!",
+      "message": "Операция успешно завершена.",
+      "button": "Перейти домой"
+    },
+    "modal": {
+      "register": "Регистрация"
+    },
+    "profile": {
+      "title": "Профиль",
+      "name": "Имя",
+      "username": "Имя пользователя",
+      "email": "Эл. почта",
+      "password": "Пароль",
+      "address": "Адрес",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "saved": "Профиль сохранён"
+    },
+    "savedAccounts": {
+      "title": "Сохранённые аккаунты",
+      "use": "Использовать",
+      "delete": "Удалить",
+      "noAccounts": "Сохранённых аккаунтов нет"
+    },
+    "footer": {
+      "explore": "Исследуйте тысячи фильмов, откройте жанры и наслаждайтесь лучшими моментами кино.",
+      "followUs": "Следите за нами",
+      "rights": "Все права защищены."
+    },
+    "auth": {
+      "loginTitle": "Вход",
+      "signupTitle": "Зарегистрироваться",
+      "email": "Эл. почта",
+      "password": "Пароль",
+      "back": "Назад",
+      "loginButton": "Войти",
+      "signupButton": "Зарегистрироваться",
+      "invalidCredentials": "Неверный email или пароль",
+      "passwordsDontMatch": "Пароли не совпадают",
+      "required": "Это поле обязательно",
+      "name": "Имя",
+      "surname": "Фамилия",
+      "confirmPassword": "Подтвердите пароль",
+      "emailInUse": "Email уже используется",
+      "invalidEmail": "Неверный email"
+    },
+    "code": {
+      "title": "ВВЕДИТЕ КОД",
+      "placeholder": "••••••",
+      "send": "ОТПРАВИТЬ",
+      "error": "Неверный код"
+    }
+    ,
+    "film": {
+      "name": "Название",
+      "productions": "Производство",
+      "date": "Дата",
+      "director": "Режиссёр",
+      "category": "Категория",
+      "country": "Страна",
+      "time": "Время",
+      "actorsHeading": "Актёры",
+      "description": "Описание",
+      "watchOnline": "{name} — Смотреть онлайн",
+      "actorsWithCharacters": "Актёры и их персонажи",
+      "unknown": "Неизвестно",
+      "similar": "ПОХОЖИЕ"
+    }
+    ,
+    "fallbacks": {
+      "noTitle": "Без названия",
+      "unknown": "Неизвестно",
+      "noDescription": "Описание недоступно"
+    }
+  }
+}
+

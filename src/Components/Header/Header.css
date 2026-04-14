@@ -1,0 +1,186 @@
+
+.header{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.headerTop{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.headerLeft{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.orderInput{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ordersLink{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  border: 1px outset rgb(255, 255, 255);
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.ordersLink:hover{
+  background-color: rgba(102, 102, 102, 0.238);
+  transition: 0.5s;
+}
+
+.categorys{
+  width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 20px;
+}
+
+.genre{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 140px;
+  height: 40px;
+  border: 2px outset black;
+  background-color: rgba(128, 128, 128, 0);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.genre:hover{
+  background-color: rgba(0, 0, 0, 0.238);
+}
+
+.activeGenre{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 140px;
+  height: 40px;
+  border: 2px outset black;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.activeGenre:hover{
+  background-color: rgba(255, 255, 255, 0.807);
+}
+
+.HH{
+  font-size: 100px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+}
+
+.favorite{
+  font-size: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  position: absolute;
+  font-style: italic;
+  bottom: 0;
+}
+
+.SearchMovie{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.search{
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid rgb(160, 160, 160);
+    width: 230px;
+    height: 40px;
+    padding: 5px 10px;
+    color: rgb(160, 160, 160);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.search:hover{
+    border: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.125);
+    transition: 1s;
+}
+
+hr{
+  width: 100%;
+}
+
+.account{
+  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.registerLink{
+  cursor: pointer;
+}
+
+.registerModal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+
+.headerBackdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 240ms ease, visibility 240ms;
+  z-index: 1000;
+}
+
+.headerBackdrop.show{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body.no-scroll{
+  overflow: hidden;
+}
+

@@ -1,0 +1,65 @@
+.Pagination{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin: 10px;
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: rgba(0, 0, 0, 0.175);
+}
+
+.buttonBig{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+
+.buttonBig:hover{
+    background-color: rgba(0, 0, 0, 0.175);
+}
+
+.active{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.active:hover{
+  background-color: rgba(255, 255, 255, 0.807);
+
+}

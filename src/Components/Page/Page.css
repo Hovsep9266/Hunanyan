@@ -1,0 +1,31 @@
+.films{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px 10px;
+}
+
+
+
+.film-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 2px solid rgb(160, 160, 160);
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.film-item:hover{
+    background-color: rgba(0, 0, 0, 0.37);
+}
+
+
+Link{
+    width: 130px;
+    height: 40px;
+    font-size: 14px;
+}

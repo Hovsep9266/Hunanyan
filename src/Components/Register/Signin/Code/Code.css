@@ -1,0 +1,83 @@
+.Code{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 400px;
+}
+
+.inputButton{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.send{
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    border: 2px solid black;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.send:hover{
+     background-color: rgba(0, 0, 0, 0.238);
+    transition: 0.5s;
+}
+
+
+.error{
+    display: flex;
+    align-items: flex-start;
+    color: red;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+
+.code-input {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 14px;
+  text-align: center;
+  padding: 16px 20px;
+  width: 260px;
+
+  background: #0f1724;
+  color: #e6eef8;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.4);
+
+  outline: none;
+}
+
+.code-input::placeholder {
+  color: #3b4453;
+  opacity: 0.4;
+}
+
+/* focus */
+.code-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+}
+
+/* For mobile: reduce spacing */
+@media (max-width: 420px) {
+  .code-input {
+    width: 200px;
+    letter-spacing: 10px;
+    font-size: 28px;
+    padding: 12px 16px;
+  }
+}

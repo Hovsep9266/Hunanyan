@@ -1,0 +1,79 @@
+.orders-root {
+  border: 1px solid #e6e6e6;
+  padding: 12px;
+  margin: 12px 0;
+  background: #ffffff00;
+}
+.orders-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.orders-form input {
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+.orders-controls {
+  margin-top: 10px;
+}
+.orders-error {
+  color: #c62828;
+  margin-top: 8px;
+}
+.orders-result pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #3c373700;
+  padding: 8px
+}
+
+.OrderList{
+  display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px 10px;
+  }
+  
+  .film-item{
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 2px solid rgb(160, 160, 160);
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.film-item:hover{
+    background-color: rgba(0, 0, 0, 0.37);
+}
+
+.Link{
+    width: 130px;
+    height: 40px;
+    font-size: 14px;
+}
+
+.OrderActions{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.OrderEmpty{
+  font-size: 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.delete{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}

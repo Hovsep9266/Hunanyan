@@ -1,0 +1,96 @@
+.savedAccountsList {
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  max-height: 50vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 0;
+}
+
+.savedAccount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #0b122000;
+  border: 1px solid #eaeaea;
+}
+
+.savedAccount .meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #cbd5e1;
+}
+
+.savedAccount .actions {
+  display: flex;
+  gap: 8px;
+}
+
+.savedAccount button {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.savedAccount .useBtn {
+  background: #00000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.savedAccount .useBtn:hover {
+  transition: 0.3s;
+  background: #00000060;
+}
+
+.savedAccount .delBtn {
+  background: #00000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.savedAccount .delBtn:hover {
+  transition: 0.3s;
+  background: #b3000060;
+}
+
+.noAccounts {
+  color: #94a3b8;
+  padding: 8px 0;
+}
+
+.userAccount{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.signbutton{
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    border: 2px solid black;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.signbutton:hover{
+    background-color: rgba(0, 0, 0, 0.238);
+    transition: 0.5s;
+}

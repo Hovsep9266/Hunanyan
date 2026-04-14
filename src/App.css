@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  padding: 15%;
+  /* background-image: url("https://c4.wallpaperflare.com/wallpaper/821/142/376/lara-croft-rise-of-the-tomb-raider-video-games-face-wallpaper-preview.jpg"); */
+  background-image: url("https://wallpapercave.com/wp/wp1913866.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  color: rgb(229, 229, 229);;
+}
+
+.selectFilm{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 5px solid rgb(33, 33, 33);
+  background-color: rgba(63, 63, 63, 0.845);
+  padding: 20px;
+  min-height: 500px;
+}
