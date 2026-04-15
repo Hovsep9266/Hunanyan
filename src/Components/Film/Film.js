@@ -9,6 +9,7 @@ import { useI18n } from "../../i18n/I18nProvider";
 export const Film = ({
   selectFilm,
   setFilmId,
+  setSelectFilm,
   setValue,
   trailer,
   setSave,
@@ -175,15 +176,15 @@ export const Film = ({
                   height={150}
                 />
               </div>
-              <p className="actorName">
-                {actor.name.nameText.text}:{" "}
-                {actor.creditedRoles.edges?.map((charact, j) => {
-                  const characterName =
-                    charact?.node?.characters?.edges?.[0]?.node?.name ||
-                    t("film.unknown");
-
-                  return <span key={j}>{characterName}</span>;
-                })}
+              <p className="actorName">{actor.name.nameText.text}</p>
+              <p className="actorCharacter">
+                {(actor.creditedRoles.edges || [])
+                  .map(
+                    (charact) =>
+                      charact?.node?.characters?.edges?.[0]?.node?.name ||
+                      t("film.unknown"),
+                  )
+                  .join(", ")}
               </p>
             </div>
           ))}
@@ -196,14 +197,19 @@ export const Film = ({
         <div className="similar">
           {selectFilm.similar?.map((similarFilm) => {
             return (
-              <div className="similarFilm">
-                <img
-                  src={similarFilm.node.primaryImage.url}
-                  width={150}
-                  height={200}
-                />
+              <Link
+                className="similarFilm"
+                key={similarFilm.node.id}
+                to={`/film/${similarFilm.node.id}`}
+                onClick={() => {
+                  setSelectFilm(null);
+                  setFilmId(similarFilm.node.id);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                <img src={similarFilm.node.primaryImage.url} width={150} height={200} />
                 <div>{similarFilm.node.primaryImage.caption.plainText}</div>
-              </div>
+              </Link>
             );
           })}
         </div>

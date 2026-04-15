@@ -3,7 +3,7 @@ import "./SearchFilm.css";
 import { useI18n } from "../../i18n/I18nProvider";
 
 export const SearchFilm = ({
-  setSelectCategory,
+  setSelectedCategory,
   films,
   setFilmId,
   setValue,
@@ -17,7 +17,9 @@ export const SearchFilm = ({
     setSelectFilm(null);
     setFilmId(filmId);
     setValue("");
-    setSelectCategory(null);
+    if (typeof setSelectedCategory === "function") {
+      setSelectedCategory(null);
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

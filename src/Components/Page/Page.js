@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useI18n } from "../../i18n/I18nProvider";
 import "./Page.css";
-import { GetImgUrl, GetMovieById, GetMoviesByPage } from "./Responce/Respponce";
+import { GetImgUrl, GetMoviesByPage } from "./Responce/Respponce";
 import Pagination from "./Pagination/Pagination";
 import { Loading } from "../Loading/Loading";
 import { Link } from "react-router-dom";
@@ -10,16 +10,6 @@ import { Link } from "react-router-dom";
 function Page({ setValue, setFilmId, setSelectFilm, page, setPage }) {
   const { t } = useI18n();
   const [filmPages, setFilmPages] = useState();
-
-  const getMovie = async (id) => {
-    try {
-      const movie = await GetMovieById(id);
-
-      setFilmId(movie.data.imdb_id);
-    } catch {
-      console.log("error");
-    }
-  };
 
   const getFilms = async (page) => {
     try {
@@ -52,10 +42,11 @@ function Page({ setValue, setFilmId, setSelectFilm, page, setPage }) {
         {filmPages.map((film, i) => (
           <Link
             key={i}
-            to={`/film/${film.title}`}
+            to={`/film/${film.id}`}
             className="film-item"
             onClick={() => {
-              getMovie(film.id);
+              setFilmId(film.id);
+              setSelectFilm(null);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >

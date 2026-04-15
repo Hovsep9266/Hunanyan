@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useI18n } from "../../i18n/I18nProvider";
 import "./Category.css";
-import { GetMovieById, GetMoviesByPage } from "../Page/Responce/Respponce";
+import { GetMoviesByPage } from "../Page/Responce/Respponce";
 import { Link } from "react-router-dom";
 
 export const Category = ({ findId, setFilmId, genreName }) => {
@@ -32,16 +32,6 @@ export const Category = ({ findId, setFilmId, genreName }) => {
     return <div>{t("header.selectCategory") || "Select a category"}</div>;
   if (loading) return <div className="loading">{t("common.loading")}</div>;
 
-  const getKino = async (id) => {
-    try {
-      const movie = await GetMovieById(id);
-
-      setFilmId(movie.data.imdb_id);
-    } catch {
-      console.log("error");
-    }
-  };
-
   return (
     <div className="CategoryMovies">
       <h1>{t("category.moviesIn", { genre: genreName })}</h1>
@@ -49,12 +39,12 @@ export const Category = ({ findId, setFilmId, genreName }) => {
       <div className="films">
         {movies.map((film) => (
           <Link
-            to={`/film/${film.title}`}
+            to={`/film/${film.id}`}
             key={film.id}
             className="film-item"
             onClick={() => {
               window.scrollTo({ top: 630, behavior: "smooth" });
-              getKino(film.id);
+              setFilmId(film.id);
             }}
           >
             <img

@@ -15,7 +15,9 @@ export function GetMoviesByPage(page) {
 }
 
 export function GetMovieById(id) {
-  return axios.get(`${API_URL}movie/${id}?api_key=${API_KEY}&language=en-US`);
+  return axios.get(
+    `${API_URL}movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,similar,videos`
+  );
 }
 
 export function GetGenres() {

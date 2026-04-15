@@ -7,7 +7,12 @@ import Page from "./Components/Page/Page";
 import { Route, Routes, useParams } from "react-router-dom";
 import { NotFound } from "./Components/NotFound/NotFound";
 import { Category } from "./Components/Category/Category";
-import { GetGenres } from "./Components/Page/Responce/Respponce";
+import {
+  GetGenres,
+  GetImgUrl,
+  GetMovieById,
+  GetMovieByQuery,
+} from "./Components/Page/Responce/Respponce";
 import Orders from "./Components/Orders/Orders";
 
 import { useI18n } from "./i18n/I18nProvider";
@@ -33,6 +38,25 @@ function App() {
     }
   });
 
+  const buildFallbackFilm = (id) => ({
+    id,
+    name: t("fallbacks.noTitle"),
+    date: t("fallbacks.unknown"),
+    description: t("fallbacks.noDescription"),
+    genre: t("fallbacks.unknown"),
+    image: "",
+    trailer: "",
+    primaryVideos: [],
+    characters: [],
+    actorsImage: [],
+    ecoder: "",
+    production: [],
+    director: t("fallbacks.unknown"),
+    country: t("fallbacks.unknown"),
+    time: t("fallbacks.unknown"),
+    similar: [],
+  });
+
   useEffect(() => {
     const fetchGenres = async () => {
       const resGenre = await GetGenres();
@@ -47,54 +71,83 @@ function App() {
   useEffect(() => {
     if (!filmId) return;
 
-    fetch(`https://imdb.iamidiotareyoutoo.com/search?tt=${filmId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.short) {
-          console.error("No film data found", data);
+    GetMovieById(filmId)
+      .then((response) => {
+        const data = response?.data;
+
+        if (!data || !data.id) {
+          setSelectFilm(buildFallbackFilm(filmId));
           return;
         }
 
+        const cast = Array.isArray(data.credits?.cast) ? data.credits.cast : [];
+        const director = data.credits?.crew?.find((crew) => crew.job === "Director");
+        const similarMovies = Array.isArray(data.similar?.results)
+          ? data.similar.results
+          : [];
+
         setSelectFilm({
-          name: data.short.name || t("fallbacks.noTitle"),
-          date: data.short.datePublished || t("fallbacks.unknown"),
-          description:
-            data.top.primaryVideos.edges?.map((des) => {
-              return des.node.description.value;
-            }) || t("fallbacks.noDescription"),
-          genre: Array.isArray(data.short.genre)
-            ? data.short.genre.join(", ")
-            : data.short.genre || t("fallbacks.unknown"),
-          image: data.short.image,
-          trailer: data.short.trailer?.embedUrl || "",
-          primaryVideos: data.top.primaryVideos.edges?.map((play) => {
-            return play.node.playbackURLs?.map((vid) => {
-              return vid.url;
-            });
-          }),
-          characters: data.main.castV2[0].credits?.map((role) => {
-            return role.creditRoles?.edges[0].node.characters.edges?.map(
-              (edg) => {
-                return edg.node.name;
+          id: data.id,
+          imdbId: data.imdb_id || "",
+          name: data.title || t("fallbacks.noTitle"),
+          date: data.release_date || t("fallbacks.unknown"),
+          description: data.overview || t("fallbacks.noDescription"),
+          genre: Array.isArray(data.genres)
+            ? data.genres.map((g) => g.name).join(", ")
+            : t("fallbacks.unknown"),
+          image: data.poster_path ? GetImgUrl(data.poster_path) : "",
+          trailer: "",
+          primaryVideos: [],
+          characters: cast.slice(0, 10).map((actor) => actor.character || t("film.unknown")),
+          actorsImage: cast.slice(0, 10).map((actor) => ({
+            name: {
+              nameText: { text: actor.name || t("fallbacks.unknown") },
+              primaryImage: {
+                url: actor.profile_path ? GetImgUrl(actor.profile_path) : "",
               },
-            );
-          }),
-          actorsImage: data.main.castV2[0].credits,
-          ecoder: data.top.primaryVideos.edges?.map((url) => {
-            return url.node.playbackURLs[0].url;
-          }),
-          production: data.main.production.edges?.map((company) => {
-            return company.node.company.companyText.text;
-          }),
-          director:
-            data.top.principalCreditsV2[0].credits[0].name.nameText.text,
-          country: data.top.releaseDate.country.text,
-          time: data.top.runtime?.displayableProperty.value.plainText,
-          similar: data.main.relatedInterests.edges,
+            },
+            creditedRoles: {
+              edges: [
+                {
+                  node: {
+                    characters: {
+                      edges: [
+                        {
+                          node: {
+                            name: actor.character || t("film.unknown"),
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          })),
+          ecoder: "",
+          production: Array.isArray(data.production_companies)
+            ? data.production_companies.map((company) => company.name)
+            : [],
+          director: director?.name || t("fallbacks.unknown"),
+          country:
+            data.production_countries?.[0]?.name ||
+            data.origin_country?.[0] ||
+            t("fallbacks.unknown"),
+          time: data.runtime ? `${data.runtime} min` : t("fallbacks.unknown"),
+          similar: similarMovies.slice(0, 8).map((movie) => ({
+            node: {
+              id: movie.id,
+              primaryImage: {
+                url: movie.poster_path ? GetImgUrl(movie.poster_path) : "",
+                caption: { plainText: movie.title || t("fallbacks.noTitle") },
+              },
+            },
+          })),
         });
       })
       .catch((error) => {
         console.error("Error fetching film:", error);
+        setSelectFilm(buildFallbackFilm(filmId));
       });
   }, [filmId, t]);
 
@@ -102,26 +155,24 @@ function App() {
     if (!value) return;
 
     let id = setTimeout(() => {
-      fetch(`https://imdb.iamidiotareyoutoo.com/search?q=${value}`)
-        .then((response) => response.json())
+      GetMovieByQuery(value)
         .then((data) => {
-          const list = data.description || data.d || data.results || [];
+          const list = data?.results || [];
 
           const res = list.map((film) => ({
-            id: film["#IMDB_ID"] || film.id,
-            url: film["#IMDB_URL"] || film.url,
-            name: film["#NAME"] || film.name,
-            year: film["#YEAR"] || film.year,
-            rank: film["#RANK"] || film.rank,
-            aka: film["#AKA"] || film.title,
-            imgPoster: film["#IMG_POSTER"] || film.image,
-            actors: film["#ACTORS"] || film.actors,
+            id: film.id,
+            name: film.title,
+            year: film.release_date?.slice(0, 4) || "",
+            aka: film.title || t("fallbacks.noTitle"),
+            imgPoster: film.poster_path ? GetImgUrl(film.poster_path) : "",
+            actors: film.original_language || t("fallbacks.unknown"),
           }));
 
           setFilms(res);
         })
         .catch((error) => {
           console.error("Error fetching film:", error);
+          setFilms([]);
         });
     }, 1000);
     console.log("mount", id);
@@ -151,16 +202,14 @@ function App() {
   };
 
   useEffect(() => {
-    getVideo(filmId);
-  }, [filmId]);
+    getVideo(selectFilm?.imdbId);
+  }, [selectFilm?.imdbId]);
 
   function FilmRoute() {
     const { filmId: paramId } = useParams();
 
     useEffect(() => {
-      if (paramId && String(paramId).startsWith("tt")) {
-        setFilmId(paramId);
-      }
+      if (paramId) setFilmId(paramId);
     }, [paramId]);
 
     return (
