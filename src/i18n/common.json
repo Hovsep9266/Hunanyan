@@ -9,7 +9,11 @@
       "notLoggedIn": "You are not logged in.",
       "welcome": "Welcome {name}!",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu"
+      "closeMenu": "Close menu",
+      "navMovies": "Movies",
+      "navTv": "TV series",
+      "navAnime": "Anime",
+      "mediaNavAria": "Browse by type"
     },
     "profile": {
       "title": "Profile",
@@ -103,11 +107,38 @@
       "country": "Country",
       "time": "Time",
       "actorsHeading": "Actors",
+      "rolesLabel": "Roles",
       "description": "Description",
       "watchOnline": "{name} — Watch Online",
+      "trailerPlayerTitle": "Trailer: {name}",
+      "noTrailer": "No trailer or stream is linked for this title. Many films only have a trailer on YouTube via the catalog.",
+      "watchFullTitle": "Watch the full movie / series (official services)",
+      "watchFullNote": "We link to legal streaming and rental options from the catalog. Availability depends on your country and subscriptions.",
+      "watchRegion": "Showing options for region: {region}",
+      "watchSubscribe": "Streaming (subscription)",
+      "watchRent": "Rent",
+      "watchBuy": "Buy",
+      "openWatchOptions": "Open all options on TMDB",
+      "watchFullUnavailable": "No licensed streaming or rental listings were found for your selected region in the catalog.",
       "actorsWithCharacters": "Actors with Their Characters",
       "unknown": "Unknown",
-      "similar": "SIMILAR"
+      "similar": "SIMILAR",
+      "runtimeMinutes": "{minutes} min"
+    }
+    ,
+    "actor": {
+      "films": "Films",
+      "biography": "Biography",
+      "asCharacter": "as {character}",
+      "noFilms": "No films listed for this actor.",
+      "notFound": "Actor could not be loaded."
+    }
+    ,
+    "tv": {
+      "seriesHeading": "Popular TV series",
+      "animeHeading": "Anime series",
+      "seasonsCount": "{n} seasons",
+      "dataNote": "Series data from TMDB (includes IMDb id when available)."
     }
     ,
     "fallbacks": {
@@ -126,7 +157,11 @@
       "notLoggedIn": "Вы не вошли в систему.",
       "welcome": "Добро пожаловать, {name}!",
       "openMenu": "Открыть меню",
-      "closeMenu": "Закрыть меню"
+      "closeMenu": "Закрыть меню",
+      "navMovies": "Фильмы",
+      "navTv": "Сериалы",
+      "navAnime": "Аниме",
+      "mediaNavAria": "Разделы каталога"
     },
     "search": {
       "noFilms": "Фильмы не найдены...",
@@ -220,11 +255,38 @@
       "country": "Страна",
       "time": "Время",
       "actorsHeading": "Актёры",
+      "rolesLabel": "Роли",
       "description": "Описание",
       "watchOnline": "{name} — Смотреть онлайн",
+      "trailerPlayerTitle": "Трейлер: {name}",
+      "noTrailer": "Для этого тайтла нет встроенного трейлера в каталоге. Часто доступен только трейлер (например, на YouTube).",
+      "watchFullTitle": "Где смотреть полностью (официальные сервисы)",
+      "watchFullNote": "Показываем легальные стриминг, аренду и покупку из каталога. Доступность зависит от страны и подписок.",
+      "watchRegion": "Варианты для региона: {region}",
+      "watchSubscribe": "Подписка (стриминг)",
+      "watchRent": "Аренда",
+      "watchBuy": "Покупка",
+      "openWatchOptions": "Все варианты на TMDB",
+      "watchFullUnavailable": "В каталоге не найдено лицензионных сервисов для выбранного региона.",
       "actorsWithCharacters": "Актёры и их персонажи",
       "unknown": "Неизвестно",
-      "similar": "ПОХОЖИЕ"
+      "similar": "ПОХОЖИЕ",
+      "runtimeMinutes": "{minutes} мин"
+    }
+    ,
+    "actor": {
+      "films": "Фильмы",
+      "biography": "Биография",
+      "asCharacter": "в роли {character}",
+      "noFilms": "Для этого актёра нет фильмов в списке.",
+      "notFound": "Не удалось загрузить страницу актёра."
+    }
+    ,
+    "tv": {
+      "seriesHeading": "Популярные сериалы",
+      "animeHeading": "Аниме-сериалы",
+      "seasonsCount": "{n} сезонов",
+      "dataNote": "Данные сериалов — TMDB (при наличии указан IMDb id)."
     }
     ,
     "fallbacks": {

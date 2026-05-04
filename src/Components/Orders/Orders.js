@@ -2,7 +2,7 @@ import "./Orders.css";
 import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nProvider";
 
-export default function Orders({ save, setSave, setFilmId }) {
+export default function Orders({ save, setSave, setFilmId, setTvId }) {
   const { t } = useI18n();
   const handleDelete = (indexToRemove) => {
     if (!setSave) return;
@@ -15,10 +15,21 @@ export default function Orders({ save, setSave, setFilmId }) {
         <div className="OrderItem">
           <h2>{t("orders.summary")}</h2>
           <div className="OrderList">
-            {save.map((item, index) => (
+            {save.map((item, index) => {
+              const isTv = item.media === "tv";
+              const to = isTv ? `/show/${item.id}` : `/film/${item.id}`;
+              return (
               <Link
-                to={`/film/${item.name}`}
-                onClick={() => setFilmId(item.id)}
+                to={to}
+                onClick={() => {
+                  if (isTv) {
+                    setFilmId(false);
+                    setTvId?.(String(item.id));
+                  } else {
+                    setTvId?.(undefined);
+                    setFilmId(item.id);
+                  }
+                }}
                 key={index}
                 className="film-item"
               >
@@ -51,7 +62,8 @@ export default function Orders({ save, setSave, setFilmId }) {
                 <div className="film-genre">{item.genre}</div>
                 <div className="OrderActions"></div>
               </Link>
-            ))}
+            );
+            })}
           </div>
         </div>
       ) : (

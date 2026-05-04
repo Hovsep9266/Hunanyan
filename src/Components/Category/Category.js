@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
 import { useI18n } from "../../i18n/I18nProvider";
 import "./Category.css";
-import { GetMoviesByPage } from "../Page/Responce/Respponce";
+import {
+  GetMoviesByGenre,
+  getTmdbLanguage,
+} from "../Page/Responce/Respponce";
 import { Link } from "react-router-dom";
 
-export const Category = ({ findId, setFilmId, genreName }) => {
+export const Category = ({ findId, setFilmId, setTvId, genreName }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const apiLang = getTmdbLanguage(lang);
 
   const loadMovies = async () => {
     if (!findId) return;
 
     try {
       setLoading(true);
-      const { data } = await GetMoviesByPage(findId, 1);
+      const { data } = await GetMoviesByGenre(findId, 1, apiLang);
       setMovies(data.results);
     } catch (error) {
       console.log("Error:", error);
@@ -26,10 +30,9 @@ export const Category = ({ findId, setFilmId, genreName }) => {
   useEffect(() => {
     loadMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [findId]);
+  }, [findId, apiLang]);
 
-  if (!findId)
-    return <div>{t("header.selectCategory") || "Select a category"}</div>;
+  if (!findId) return <div>{t("category.select")}</div>;
   if (loading) return <div className="loading">{t("common.loading")}</div>;
 
   return (
@@ -45,6 +48,7 @@ export const Category = ({ findId, setFilmId, genreName }) => {
             onClick={() => {
               window.scrollTo({ top: 630, behavior: "smooth" });
               setFilmId(film.id);
+              setTvId?.(undefined);
             }}
           >
             <img

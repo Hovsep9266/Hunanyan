@@ -2,33 +2,43 @@
 import { useEffect, useState } from "react";
 import { useI18n } from "../../i18n/I18nProvider";
 import "./Page.css";
-import { GetImgUrl, GetMoviesByPage } from "./Responce/Respponce";
+import {
+  GetImgUrl,
+  GetMoviesByPage,
+  getTmdbLanguage,
+} from "./Responce/Respponce";
 import Pagination from "./Pagination/Pagination";
 import { Loading } from "../Loading/Loading";
 import { Link } from "react-router-dom";
 
-function Page({ setValue, setFilmId, setSelectFilm, page, setPage }) {
-  const { t } = useI18n();
+function Page({ setValue, setFilmId, setTvId, setSelectFilm, page, setPage }) {
+  const { t, lang } = useI18n();
+  const apiLang = getTmdbLanguage(lang);
   const [filmPages, setFilmPages] = useState();
-
-  const getFilms = async (page) => {
-    try {
-      const res = await GetMoviesByPage(page);
-
-      if (res?.data.results.length) {
-        setFilmPages(res.data.results);
-      }
-    } catch (error) {
-      console.log("errror", error);
-    }
-  };
 
   console.log(filmPages);
 
   useEffect(() => {
-    getFilms(page);
+    let cancelled = false;
+
+    const load = async () => {
+      try {
+        const res = await GetMoviesByPage(page, apiLang);
+        if (cancelled) return;
+        if (res?.data.results.length) {
+          setFilmPages(res.data.results);
+        }
+      } catch (error) {
+        if (!cancelled) console.log("errror", error);
+      }
+    };
+
+    load();
     window.scrollTo({ top: 630, behavior: "smooth" });
-  }, [page]);
+    return () => {
+      cancelled = true;
+    };
+  }, [page, apiLang]);
 
   if (!filmPages) {
     return <Loading />;
@@ -46,6 +56,7 @@ function Page({ setValue, setFilmId, setSelectFilm, page, setPage }) {
             className="film-item"
             onClick={() => {
               setFilmId(film.id);
+              setTvId?.(undefined);
               setSelectFilm(null);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}

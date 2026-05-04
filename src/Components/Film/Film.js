@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/iframe-has-title */
 /* eslint-disable jsx-a11y/alt-text */
 import { Link } from "react-router-dom";
 import "./Film.css";
@@ -9,20 +8,28 @@ import { useI18n } from "../../i18n/I18nProvider";
 export const Film = ({
   selectFilm,
   setFilmId,
+  setTvId,
   setSelectFilm,
   setValue,
-  trailer,
   setSave,
   save,
 }) => {
   const [isSaved, setIsSaved] = useState(false);
   const { t } = useI18n();
+  const mediaType = selectFilm?.media === "tv" ? "tv" : "movie";
+  const tvBackPath =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("hhTvBrowseBack") === "/anime"
+        ? "/anime"
+        : "/tv"
+      : "/tv";
 
   const handleSaveOrder = () => {
     if (!selectFilm) return;
 
     const newFilm = {
       id: selectFilm.id,
+      media: mediaType,
       name: selectFilm.name,
       image: selectFilm.image,
       genre: selectFilm.genre,
@@ -33,7 +40,9 @@ export const Film = ({
     setSave((prev) => {
       try {
         const exists = prev.some(
-          (f) => f.name === newFilm.name && f.date === newFilm.date,
+          (f) =>
+            f.id === newFilm.id &&
+            (f.media || "movie") === (newFilm.media || "movie"),
         );
         if (exists) return prev;
         return [...prev, newFilm];
@@ -88,51 +97,76 @@ export const Film = ({
         </div>
 
         <div className="Address">
-          <div>
-            {t("film.name")} : {selectFilm.name}
-          </div>
-
-          <div className="Production">
-            {t("film.productions")}:
-            <div className="ProdName">
-              {selectFilm.production.map((prod, i) => (
-                <span key={i}>{prod}, </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            {t("film.date")} : {selectFilm.date}
-          </div>
-          <div>
-            {t("film.director")} : {selectFilm.director}
-          </div>
-          <div>
-            {t("film.category")} : {selectFilm.genre}
-          </div>
-          <div>
-            {t("film.country")} : {selectFilm.country}
-          </div>
-          <div>
-            {t("film.time")} : {selectFilm.time}
-          </div>
-
-          <div>
-            <h3 className="h3Actors">{t("film.actorsHeading")}</h3>
-            <div className="AddressActors">
-              {selectFilm.actorsImage.map((actor, i) => (
-                <div key={i} className="AddressName">
-                  {actor.name.nameText.text}
-                </div>
-              ))}
+          <div className="Address-meta">
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.name")}</span>
+              <span className="metaValue">{selectFilm.name}</span>
             </div>
 
-            <div className="Character">
-              <p>
-                {selectFilm.characters.map((character, i) => (
-                  <span key={i}>{character}</span>
+            <div className="metaRow metaRow--full">
+              <span className="metaLabel">{t("film.productions")}</span>
+              <ul className="metaList metaList--production">
+                {(selectFilm.production || []).map((prod, i) => (
+                  <li key={i}>{prod}</li>
                 ))}
-              </p>
+              </ul>
+            </div>
+
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.date")}</span>
+              <span className="metaValue">{selectFilm.date}</span>
+            </div>
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.director")}</span>
+              <span className="metaValue">{selectFilm.director}</span>
+            </div>
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.category")}</span>
+              <span className="metaValue">{selectFilm.genre}</span>
+            </div>
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.country")}</span>
+              <span className="metaValue">{selectFilm.country}</span>
+            </div>
+            <div className="metaRow">
+              <span className="metaLabel">{t("film.time")}</span>
+              <span className="metaValue">{selectFilm.time}</span>
+            </div>
+
+            <div className="metaRow metaRow--full metaRow--actors">
+              <span className="metaLabel metaLabel--block">
+                {t("film.actorsHeading")}
+              </span>
+              <div className="AddressActors">
+                {selectFilm.actorsImage.map((actor, i) =>
+                  actor.id ? (
+                    <Link
+                      key={actor.id}
+                      to={`/actor/${actor.id}`}
+                      className="AddressName AddressName--link"
+                    >
+                      {actor.name.nameText.text}
+                    </Link>
+                  ) : (
+                    <span key={i} className="AddressName">
+                      {actor.name.nameText.text}
+                    </span>
+                  ),
+                )}
+              </div>
+            </div>
+
+            <div className="metaRow metaRow--full metaRow--roles">
+              <span className="metaLabel metaLabel--block">
+                {t("film.rolesLabel")}
+              </span>
+              <div className="Character">
+                {(selectFilm.characters || []).map((character, i) => (
+                  <span key={i} className="characterChip">
+                    {character}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -146,48 +180,209 @@ export const Film = ({
 
         <div className="video">
           <h2>{t("film.watchOnline", { name: selectFilm.name })}</h2>
-          <video width={1020} height={600} controls>
-            <source src={selectFilm.ecoder} type="video/mp4"></source>
-          </video>
+          <div className="videoFrame">
+            {selectFilm.youtubeTrailerKey ? (
+              <iframe
+                className="filmVideoIframe"
+                src={`https://www.youtube-nocookie.com/embed/${selectFilm.youtubeTrailerKey}?rel=0`}
+                title={t("film.trailerPlayerTitle", {
+                  name: selectFilm.name,
+                })}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            ) : selectFilm.ecoder ? (
+              <video className="filmVideo" controls playsInline>
+                <source src={selectFilm.ecoder} type="video/mp4" />
+              </video>
+            ) : (
+              <div className="videoUnavailable">{t("film.noTrailer")}</div>
+            )}
+          </div>
+        </div>
 
-          {/* <iframe
-            width="1000"
-            height="515"
-            src={`https://www.youtube.com/watch?v=${trailer}`}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe> */}
+        <div className="watchFull">
+          <h2 className="watchFull-heading">{t("film.watchFullTitle")}</h2>
+          <p className="watchFull-note">{t("film.watchFullNote")}</p>
+          {(() => {
+            const wp = selectFilm.watchProviders;
+            const hasLists =
+              wp &&
+              (wp.flatrate?.length > 0 ||
+                wp.rent?.length > 0 ||
+                wp.buy?.length > 0);
+            if (!hasLists && !wp?.link) {
+              return (
+                <p className="watchFull-empty">{t("film.watchFullUnavailable")}</p>
+              );
+            }
+            return (
+              <>
+                {wp.region ? (
+                  <p className="watchFull-region">
+                    {t("film.watchRegion", { region: wp.region })}
+                  </p>
+                ) : null}
+                {hasLists ? (
+                  <div className="watchFull-groups">
+                    {wp.flatrate?.length > 0 ? (
+                      <div className="watchFull-group">
+                        <h3 className="watchFull-subheading">
+                          {t("film.watchSubscribe")}
+                        </h3>
+                        <ul className="watchFull-providers">
+                          {wp.flatrate.map((p) => (
+                            <li key={`sub-${p.id}`}>
+                              <a
+                                href={wp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="watchFull-provider"
+                              >
+                                {p.logoUrl ? (
+                                  <img
+                                    src={p.logoUrl}
+                                    alt=""
+                                    width={40}
+                                    height={40}
+                                  />
+                                ) : null}
+                                <span>{p.name}</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    {wp.rent?.length > 0 ? (
+                      <div className="watchFull-group">
+                        <h3 className="watchFull-subheading">
+                          {t("film.watchRent")}
+                        </h3>
+                        <ul className="watchFull-providers">
+                          {wp.rent.map((p) => (
+                            <li key={`rent-${p.id}`}>
+                              <a
+                                href={wp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="watchFull-provider"
+                              >
+                                {p.logoUrl ? (
+                                  <img
+                                    src={p.logoUrl}
+                                    alt=""
+                                    width={40}
+                                    height={40}
+                                  />
+                                ) : null}
+                                <span>{p.name}</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    {wp.buy?.length > 0 ? (
+                      <div className="watchFull-group">
+                        <h3 className="watchFull-subheading">
+                          {t("film.watchBuy")}
+                        </h3>
+                        <ul className="watchFull-providers">
+                          {wp.buy.map((p) => (
+                            <li key={`buy-${p.id}`}>
+                              <a
+                                href={wp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="watchFull-provider"
+                              >
+                                {p.logoUrl ? (
+                                  <img
+                                    src={p.logoUrl}
+                                    alt=""
+                                    width={40}
+                                    height={40}
+                                  />
+                                ) : null}
+                                <span>{p.name}</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+                {wp.link ? (
+                  <a
+                    className="watchFull-cta"
+                    href={wp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t("film.openWatchOptions")}
+                  </a>
+                ) : null}
+              </>
+            );
+          })()}
         </div>
       </div>
 
       <div className="actors">
         <h1>{t("film.actorsWithCharacters")}</h1>
         <div className="actorsCharacters">
-          {selectFilm.actorsImage.map((actor, i) => (
-            <div key={i} className="namesImages">
-              <div>
-                <img
-                  className="actorImage"
-                  src={actor.name.primaryImage?.url}
-                  width={100}
-                  height={150}
-                />
+          {selectFilm.actorsImage.map((actor, i) =>
+            actor.id ? (
+              <Link
+                key={actor.id}
+                to={`/actor/${actor.id}`}
+                className="namesImages namesImages--link"
+              >
+                <div>
+                  <img
+                    className="actorImage"
+                    src={actor.name.primaryImage?.url}
+                    width={100}
+                    height={150}
+                  />
+                </div>
+                <p className="actorName">{actor.name.nameText.text}</p>
+                <p className="actorCharacter">
+                  {(actor.creditedRoles.edges || [])
+                    .map(
+                      (charact) =>
+                        charact?.node?.characters?.edges?.[0]?.node?.name ||
+                        t("film.unknown"),
+                    )
+                    .join(", ")}
+                </p>
+              </Link>
+            ) : (
+              <div key={i} className="namesImages">
+                <div>
+                  <img
+                    className="actorImage"
+                    src={actor.name.primaryImage?.url}
+                    width={100}
+                    height={150}
+                  />
+                </div>
+                <p className="actorName">{actor.name.nameText.text}</p>
+                <p className="actorCharacter">
+                  {(actor.creditedRoles.edges || [])
+                    .map(
+                      (charact) =>
+                        charact?.node?.characters?.edges?.[0]?.node?.name ||
+                        t("film.unknown"),
+                    )
+                    .join(", ")}
+                </p>
               </div>
-              <p className="actorName">{actor.name.nameText.text}</p>
-              <p className="actorCharacter">
-                {(actor.creditedRoles.edges || [])
-                  .map(
-                    (charact) =>
-                      charact?.node?.characters?.edges?.[0]?.node?.name ||
-                      t("film.unknown"),
-                  )
-                  .join(", ")}
-              </p>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </div>
 
@@ -196,15 +391,23 @@ export const Film = ({
 
         <div className="similar">
           {selectFilm.similar?.map((similarFilm) => {
+            const sid = similarFilm.node.id;
+            const isTv = mediaType === "tv";
             return (
               <Link
                 className="similarFilm"
-                key={similarFilm.node.id}
-                to={`/film/${similarFilm.node.id}`}
+                key={sid}
+                to={isTv ? `/show/${sid}` : `/film/${sid}`}
                 onClick={() => {
                   setSelectFilm(null);
-                  setFilmId(similarFilm.node.id);
                   window.scrollTo({ top: 0, behavior: "smooth" });
+                  if (isTv) {
+                    setFilmId?.(false);
+                    setTvId?.(String(sid));
+                  } else {
+                    setTvId?.(undefined);
+                    setFilmId?.(String(sid));
+                  }
                 }}
               >
                 <img src={similarFilm.node.primaryImage.url} width={150} height={200} />
@@ -217,9 +420,10 @@ export const Film = ({
 
       <Link
         className="backSvg"
-        to="/"
+        to={mediaType === "tv" ? tvBackPath : "/"}
         onClick={() => {
           setFilmId(false);
+          setTvId?.(undefined);
           setValue("");
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}

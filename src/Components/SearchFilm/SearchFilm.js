@@ -6,6 +6,7 @@ export const SearchFilm = ({
   setSelectedCategory,
   films,
   setFilmId,
+  setTvId,
   setValue,
   setSelectFilm,
 }) => {
@@ -16,6 +17,7 @@ export const SearchFilm = ({
   const handleFilmClick = (filmId) => {
     setSelectFilm(null);
     setFilmId(filmId);
+    setTvId?.(undefined);
     setValue("");
     if (typeof setSelectedCategory === "function") {
       setSelectedCategory(null);

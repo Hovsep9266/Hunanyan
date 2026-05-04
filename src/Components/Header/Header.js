@@ -12,6 +12,7 @@ export const Header = ({
   value,
   setValue,
   setFilmId,
+  setTvId,
   selectGenre,
   setFindId,
   setGenreName,
@@ -77,10 +78,16 @@ export const Header = ({
     };
   }, [showMenu]);
 
+  const clearDetailState = () => {
+    setFilmId(false);
+    setTvId?.(undefined);
+    setSelectFilm(null);
+  };
+
   return (
     <header className="header">
       <div className="headerTop">
-        <Link className="headerLeft" to="/">
+        <Link className="headerLeft" to="/" onClick={clearDetailState}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="180"
@@ -135,6 +142,41 @@ export const Header = ({
             </text>
           </svg>
         </Link>
+        <nav className="headerMediaNav" aria-label={t("header.mediaNavAria")}>
+          <Link
+            to="/"
+            className={
+              location.pathname === "/" || /^\/\d+$/.test(location.pathname)
+                ? "headerMediaNav-link is-active"
+                : "headerMediaNav-link"
+            }
+            onClick={clearDetailState}
+          >
+            {t("header.navMovies")}
+          </Link>
+          <Link
+            to="/tv"
+            className={
+              location.pathname === "/tv"
+                ? "headerMediaNav-link is-active"
+                : "headerMediaNav-link"
+            }
+            onClick={clearDetailState}
+          >
+            {t("header.navTv")}
+          </Link>
+          <Link
+            to="/anime"
+            className={
+              location.pathname === "/anime"
+                ? "headerMediaNav-link is-active"
+                : "headerMediaNav-link"
+            }
+            onClick={clearDetailState}
+          >
+            {t("header.navAnime")}
+          </Link>
+        </nav>
         <div className="orderInput">
           <div className="SearchMovie">
             <input
@@ -153,6 +195,7 @@ export const Header = ({
                 setSelectedCategory={setSelectedCategory}
                 films={films}
                 setFilmId={setFilmId}
+                setTvId={setTvId}
                 setValue={setValue}
               />
             )}

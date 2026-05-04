@@ -1,0 +1,182 @@
+.ActorPage {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 4px 0 24px;
+}
+
+.ActorPage--empty {
+  text-align: center;
+  padding: 24px 12px;
+}
+
+.ActorPage-home {
+  display: inline-block;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ActorPage-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .ActorPage-header {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.ActorPage-photo {
+  width: min(200px, 42vw);
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ActorPage-photo--placeholder {
+  min-height: 280px;
+  background: rgba(40, 40, 40, 0.9);
+}
+
+.ActorPage-meta {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.ActorPage-name {
+  margin: 0 0 12px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.ActorPage-bioTitle {
+  margin: 0 0 8px;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 600;
+}
+
+.ActorPage-bio {
+  margin: 0;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: pre-line;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.ActorPage-filmsTitle {
+  margin: 0 0 14px;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  text-align: left;
+}
+
+.ActorPage-noFilms {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: left;
+}
+
+.ActorPage-films {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.ActorPage-filmCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(22, 22, 22, 0.35);
+  padding: 10px;
+  box-sizing: border-box;
+  min-width: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.ActorPage-filmCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(32, 32, 32, 0.5);
+}
+
+.ActorPage-filmCard img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ActorPage-posterPlaceholder {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  background: rgba(50, 50, 50, 0.95);
+}
+
+.ActorPage-filmTitle {
+  margin: 10px 0 4px;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.ActorPage-character {
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: center;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.ActorPage-date {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+.ActorPage-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 8px 12px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+}
+
+.ActorPage-back:hover {
+  color: #fff;
+}
+
+.ActorPage-backIcon {
+  width: 40px;
+  height: 40px;
+  fill: currentColor;
+}
+
+@media (max-width: 480px) {
+  .ActorPage-films {
+    grid-template-columns: 1fr 1fr;
+  }
+}
