@@ -1,80 +1,98 @@
-.MainSearch{
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    width: 100%;
-    z-index: 1200;
+.MainSearch {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  z-index: 1200;
 }
 
-.SearchFilm{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 6px;
-    border: 2px outset rgb(244, 244, 244);
-    border-radius: 12px;
-    background-color: rgba(0, 0, 0, 0.95);
-    position: static;
-    width: 100%;
-    max-height: 420px;
-    overflow-y: auto;
-    box-sizing: border-box;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-    animation: searchDropdownIn 0.18s ease-out;
+.SearchFilm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border: 2px outset rgb(244, 244, 244);
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.388);
+  position: static;
+  width: 100%;
+  max-height: 420px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  animation: searchDropdownIn 0.18s ease-out;
 }
 
-.filmItem{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    background-color: white;
-    border: 2px inset rgb(0, 0, 0);
-    padding: 6px 10px;
-    text-decoration: none;
-    border-radius: 6px;
+.filmItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  background-color: #f7f7f7;
+  border: 1px solid #ffffff;
+  padding: 8px 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  min-height: 72px;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.filmItem:hover{
-    cursor: pointer;
-    background-color: rgba(214, 214, 214, 0.883);
-    transition: 1s;
+.filmPoster {
+  width: 48px;
+  height: 68px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
+  background-color: #2c2c2c;
+  flex-shrink: 0;
 }
 
-.nameActor{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    color: #3c3c3c;
-    font-family: 'Courier New', Courier, monospace;
-    min-width: 0;
-    gap: 2px;
-    margin-top: 0;
+.filmItem:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
-.filmName{
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.2;
-    word-break: break-word;
+.nameActor {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1;
+  color: #3c3c3c;
+  font-family: 'Courier New', Courier, monospace;
+  min-width: 0;
+  gap: 2px;
+  margin-top: 0;
 }
 
-.actors{
-    font-size: 10px;
-    text-decoration-line: none;
-    line-height: 1.2;
-    word-break: break-word;
+.filmName {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #242424;
+  word-break: break-word;
 }
 
-.Watch{
-    font-family: 'Courier New', Courier, monospace;
-    border: 2px solid rgb(160, 160, 160);
-    padding: 20px;
-    border-radius: 10px;
+.actors {
+  font-size: 12px;
+  text-decoration-line: none;
+  line-height: 1.2;
+  color: #4f4f4f;
+  word-break: break-word;
+  margin: 0 !important;
 }
 
-.searchEmpty{
+.Watch {
+  font-family: 'Courier New', Courier, monospace;
+  border: 2px solid rgb(160, 160, 160);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.searchEmpty {
   margin-top: 2px;
   text-align: left;
   font-size: 14px;
@@ -87,6 +105,7 @@
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -95,18 +114,17 @@
 
 @media (min-width: 993px) {
   .filmItem {
-    gap: 8px;
-    padding: 5px 10px;
+    gap: 12px;
+    padding: 8px 10px;
   }
 
-  .filmItem img {
-    width: 38px;
-    height: 42px;
-    object-fit: cover;
+  .filmPoster {
+    width: 46px;
+    height: 64px;
   }
 
   .nameActor {
-    max-width: calc(100% - 52px);
+    max-width: 100%;
   }
 
   .filmName,
@@ -118,7 +136,7 @@
 }
 
 @media (max-width: 768px) {
-  .MainSearch{
+  .MainSearch {
     top: calc(100% + 6px);
   }
 
@@ -127,11 +145,11 @@
     max-height: 300px;
   }
 
-  .filmName{
-    font-size: 12px;
+  .filmName {
+    font-size: 13px;
   }
 
-  .actors{
-    font-size: 10px;
+  .actors {
+    font-size: 11px;
   }
 }

@@ -23,6 +23,19 @@ export const Film = ({
         ? "/anime"
         : "/tv"
       : "/tv";
+  const watchOptionsUrl = (() => {
+    const raw = selectFilm?.watchProviders?.link || "";
+    if (!raw) return "";
+    try {
+      const url = new URL(raw);
+      url.searchParams.set("utm_source", "hh_films");
+      url.searchParams.set("utm_medium", "referral");
+      url.searchParams.set("utm_campaign", mediaType === "tv" ? "watch_tv" : "watch_movie");
+      return url.toString();
+    } catch (e) {
+      return raw;
+    }
+  })();
 
   const handleSaveOrder = () => {
     if (!selectFilm) return;
@@ -235,7 +248,7 @@ export const Film = ({
                           {wp.flatrate.map((p) => (
                             <li key={`sub-${p.id}`}>
                               <a
-                                href={wp.link}
+                                href={watchOptionsUrl || wp.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="watchFull-provider"
@@ -264,7 +277,7 @@ export const Film = ({
                           {wp.rent.map((p) => (
                             <li key={`rent-${p.id}`}>
                               <a
-                                href={wp.link}
+                                href={watchOptionsUrl || wp.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="watchFull-provider"
@@ -293,7 +306,7 @@ export const Film = ({
                           {wp.buy.map((p) => (
                             <li key={`buy-${p.id}`}>
                               <a
-                                href={wp.link}
+                                href={watchOptionsUrl || wp.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="watchFull-provider"
@@ -318,7 +331,7 @@ export const Film = ({
                 {wp.link ? (
                   <a
                     className="watchFull-cta"
-                    href={wp.link}
+                    href={watchOptionsUrl || wp.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -23,10 +23,23 @@ import { TvBrowsePage } from "./Components/Tv/TvBrowsePage";
 
 import { useI18n } from "./i18n/I18nProvider";
 
+function setMetaContent(attr, key, value) {
+  if (typeof document === "undefined") return;
+  let node = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!node) {
+    node = document.createElement("meta");
+    node.setAttribute(attr, key);
+    document.head.appendChild(node);
+  }
+  node.setAttribute("content", value);
+}
+
 function App() {
   const location = useLocation();
   const { t, lang } = useI18n();
   const apiLang = getTmdbLanguage(lang);
+  const DEFAULT_SITE_BG = "https://wallpapercave.com/wp/wp9049784.jpg";
+  // const DEFAULT_SITE_BG = "https://wallpapercave.com/wp/wp1913866.jpg";
   const showSiteBackdrop =
     location.pathname.startsWith("/film/") ||
     location.pathname.startsWith("/actor/") ||
@@ -111,6 +124,7 @@ function App() {
             ? data.genres.map((g) => g.name).join(", ")
             : t("fallbacks.unknown"),
           image: data.poster_path ? GetImgUrl(data.poster_path) : "",
+          backdrop: data.backdrop_path ? GetImgUrl(data.backdrop_path) : "",
           trailer: "",
           primaryVideos: [],
           youtubeTrailerKey: pickYoutubeVideoKey(data.videos),
@@ -222,8 +236,8 @@ function App() {
         const avgEp =
           epTimes?.length > 0
             ? Math.round(
-                epTimes.reduce((a, b) => a + b, 0) / epTimes.length,
-              )
+              epTimes.reduce((a, b) => a + b, 0) / epTimes.length,
+            )
             : null;
         const timeCore = avgEp
           ? t("film.runtimeMinutes", { minutes: avgEp })
@@ -245,6 +259,7 @@ function App() {
             ? data.genres.map((g) => g.name).join(", ")
             : t("fallbacks.unknown"),
           image: data.poster_path ? GetImgUrl(data.poster_path) : "",
+          backdrop: data.backdrop_path ? GetImgUrl(data.backdrop_path) : "",
           trailer: "",
           primaryVideos: [],
           youtubeTrailerKey: pickYoutubeVideoKey(data.videos),
@@ -340,6 +355,54 @@ function App() {
     };
   }, [value, t, apiLang]);
 
+  useEffect(() => {
+    const isRu = lang === "ru";
+    const baseTitle = isRu ? "HH films" : "HH films";
+    const pathname = location.pathname;
+    let title = baseTitle;
+    let description = isRu
+      ? "Каталог фильмов, сериалов и аниме: трейлеры, актёры и легальные варианты просмотра."
+      : "Movie, TV series, and anime catalog with trailers, cast pages, and legal watch options.";
+
+    if (pathname.startsWith("/tv")) {
+      title = isRu ? "Сериалы - HH films" : "TV Series - HH films";
+      description = isRu
+        ? "Популярные и топовые сериалы с трейлерами и официальными сервисами просмотра."
+        : "Popular and top-rated TV series with trailers and official streaming providers.";
+    } else if (pathname.startsWith("/anime")) {
+      title = isRu ? "Аниме - HH films" : "Anime - HH films";
+      description = isRu
+        ? "Большой каталог аниме-сериалов и аниме-фильмов с трейлерами и ссылками где смотреть."
+        : "Large catalog of anime series and anime movies with trailers and watch provider links.";
+    } else if (pathname.startsWith("/film/") || pathname.startsWith("/show/")) {
+      const itemName = selectFilm?.name;
+      if (itemName) {
+        title = `${itemName} - HH films`;
+        description = isRu
+          ? `${itemName}: трейлер, актёры и легальные сервисы просмотра.`
+          : `${itemName}: trailer, cast, and legal watch providers.`;
+      } else {
+        title = isRu ? "Карточка тайтла - HH films" : "Title page - HH films";
+      }
+    } else if (pathname.startsWith("/actor/")) {
+      title = isRu ? "Актёр - HH films" : "Actor - HH films";
+      description = isRu
+        ? "Профиль актёра и фильмы с его участием."
+        : "Actor profile and movies featuring this cast member.";
+    }
+
+    document.title = title;
+    setMetaContent("name", "description", description);
+    setMetaContent("property", "og:title", title);
+    setMetaContent("property", "og:description", description);
+    setMetaContent("property", "og:type", "website");
+    setMetaContent(
+      "property",
+      "og:url",
+      `https://hunanyans-films.netlify.app${pathname}`,
+    );
+  }, [location.pathname, lang, selectFilm?.name]);
+
   function FilmRoute() {
     const { filmId: paramId } = useParams();
 
@@ -389,11 +452,20 @@ function App() {
   useEffect(() => {
     try {
       localStorage.setItem("savedFilms", JSON.stringify(save));
-    } catch (err) {}
+    } catch (err) { }
   }, [save]);
 
+  const isTitlePage =
+    location.pathname.startsWith("/film/") || location.pathname.startsWith("/show/");
+  const activeTitleBackground =
+    (selectFilm?.backdrop || selectFilm?.image || "").replace("/w500", "/original");
+  const appBackgroundImage =
+    isTitlePage && activeTitleBackground
+      ? `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("${activeTitleBackground}")`
+      : `url("${DEFAULT_SITE_BG}")`;
+
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundImage: appBackgroundImage }}>
       <div
         className={
           showSiteBackdrop

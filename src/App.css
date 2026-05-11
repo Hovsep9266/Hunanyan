@@ -2,15 +2,13 @@
   text-align: center;
   padding: clamp(12px, 3vw, 32px);
   background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   color: rgb(229, 229, 229);
-  min-height: 100vh;
+  min-height: 100dvh;
   box-sizing: border-box;
   background-color: black;
-
-  @media (min-width: 768px) {
-    background-image: url("https://wallpapercave.com/wp/wp1913866.jpg");
-  }
 }
 
 .App h1 {
@@ -50,8 +48,11 @@
 
 @media (max-width: 768px) {
   .App {
-    background-attachment: scroll;
+    background-attachment: fixed;
     padding: 10px;
+    zoom: 0.95 !important;
+    background-position: center center;
+    background-size: cover;
   }
 
   .selectFilm {
@@ -79,6 +80,12 @@
 }
 
 @media (max-width: 480px) {
+  .App {
+    zoom: 0.92 !important;
+    background-size: cover;
+    background-position: center center;
+  }
+
   .App h1 {
     font-size: 34px;
   }
@@ -99,6 +106,12 @@
 }
 
 @media (max-width: 320px) {
+  .App {
+    zoom: 0.89 !important;
+    background-size: cover;
+    background-position: center center;
+  }
+
   .App h1 {
     font-size: 30px;
   }
@@ -115,5 +128,17 @@
   .App select,
   .App label {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .App {
+    zoom: 0.99;
+  }
+}
+
+@media (max-width: 992px) {
+  .App {
+    zoom: 0.97;
   }
 }
