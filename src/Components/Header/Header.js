@@ -2,6 +2,7 @@ import "./Header.css";
 import { SearchFilm } from "../SearchFilm/SearchFilm";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { MOVIE_GENRE_IDS, getGenreLabel } from "../../i18n/genres";
 import { useI18n } from "../../i18n/I18nProvider";
 
 export const Header = ({
@@ -10,9 +11,6 @@ export const Header = ({
   setValue,
   setFilmId,
   setTvId,
-  selectGenre,
-  setFindId,
-  setGenreName,
   selectedCategory,
   setSelectedCategory,
   setSelectFilm,
@@ -27,14 +25,23 @@ export const Header = ({
   const langWrapRef = useRef(null);
   const { t, lang, setLang } = useI18n();
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category.id);
-    setFindId(category.id);
-    setGenreName(category.name);
+  const handleCategorySelect = (genreId) => {
+    setSelectedCategory(genreId);
     if (isMobileCategoryMode) {
       setShowMobileCategories(false);
     }
   };
+
+  useEffect(() => {
+    const match = location.pathname.match(/^\/category\/(\d+)/);
+    if (match) {
+      setSelectedCategory(Number(match[1]));
+      return;
+    }
+    if (!location.pathname.startsWith("/category/")) {
+      setSelectedCategory(null);
+    }
+  }, [location.pathname, setSelectedCategory]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,12 +57,6 @@ export const Header = ({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (!location.pathname.startsWith("/category/")) {
-      setSelectedCategory(null);
-    }
-  }, [location.pathname, setSelectedCategory]);
 
   useEffect(() => {
     if (!showLangMenu) return;
@@ -259,17 +260,18 @@ export const Header = ({
             <div className="mobileCategoryDropdown">
               <div className="mobileCategoryTitle">{t("header.category")}</div>
               <div className="categorys mobileCategorys">
-                {selectGenre.map((category) => {
-                  const isSelected = selectedCategory === category.id;
+                {MOVIE_GENRE_IDS.map((genreId) => {
+                  const isSelected = selectedCategory === genreId;
+                  const label = getGenreLabel(t, genreId);
 
                   return (
                     <Link
-                      to={`/category/${category.name}`}
+                      to={`/category/${genreId}`}
                       className={`${isSelected ? "activeGenre" : "genre"}`}
-                      key={category.id}
-                      onClick={() => handleCategorySelect(category)}
+                      key={genreId}
+                      onClick={() => handleCategorySelect(genreId)}
                     >
-                      {category.name}
+                      {label}
                     </Link>
                   );
                 })}
@@ -283,17 +285,18 @@ export const Header = ({
         <h1>{t("header.category")}</h1>
 
         <div className="categorys">
-          {selectGenre.map((category) => {
-            const isSelected = selectedCategory === category.id;
+          {MOVIE_GENRE_IDS.map((genreId) => {
+            const isSelected = selectedCategory === genreId;
+            const label = getGenreLabel(t, genreId);
 
             return (
               <Link
-                to={`/category/${category.name}`}
+                to={`/category/${genreId}`}
                 className={`${isSelected ? "activeGenre" : "genre"}`}
-                key={category.id}
-                onClick={() => handleCategorySelect(category)}
+                key={genreId}
+                onClick={() => handleCategorySelect(genreId)}
               >
-                {category.name}
+                {label}
               </Link>
             );
           })}

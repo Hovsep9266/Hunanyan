@@ -1,24 +1,30 @@
 import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nProvider";
+import { getGenreLabel } from "../../i18n/genres";
 import "./Category.css";
 import {
   GetMoviesByGenre,
   getTmdbLanguage,
 } from "../Page/Responce/Respponce";
-import { Link } from "react-router-dom";
 
-export const Category = ({ findId, setFilmId, setTvId, genreName }) => {
+export const Category = ({ setFilmId, setTvId }) => {
+  const { category } = useParams();
+  const genreId = Number(category);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const { t, lang } = useI18n();
   const apiLang = getTmdbLanguage(lang);
+  const genreName = Number.isFinite(genreId)
+    ? getGenreLabel(t, genreId)
+    : "";
 
   const loadMovies = async () => {
-    if (!findId) return;
+    if (!Number.isFinite(genreId)) return;
 
     try {
       setLoading(true);
-      const { data } = await GetMoviesByGenre(findId, 1, apiLang);
+      const { data } = await GetMoviesByGenre(genreId, 1, apiLang);
       setMovies(data.results);
     } catch (error) {
       console.log("Error:", error);
@@ -30,9 +36,9 @@ export const Category = ({ findId, setFilmId, setTvId, genreName }) => {
   useEffect(() => {
     loadMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [findId, apiLang]);
+  }, [genreId, apiLang]);
 
-  if (!findId) return <div>{t("category.select")}</div>;
+  if (!Number.isFinite(genreId)) return <div>{t("category.select")}</div>;
   if (loading) return <div className="loading">{t("common.loading")}</div>;
 
   return (

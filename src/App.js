@@ -8,7 +8,6 @@ import { Route, Routes, useParams, useLocation } from "react-router-dom";
 import { NotFound } from "./Components/NotFound/NotFound";
 import { Category } from "./Components/Category/Category";
 import {
-  GetGenres,
   GetImgUrl,
   GetMovieById,
   GetMultiSearch,
@@ -53,9 +52,6 @@ function App() {
   const [tvId, setTvId] = useState();
   const [value, setValue] = useState("");
   const [page, setPage] = useState(1);
-  const [selectGenre, setSetlectGenre] = useState([]);
-  const [findId, setFindId] = useState();
-  const [genreName, setGenreName] = useState();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [save, setSave] = useState(() => {
     try {
@@ -65,17 +61,6 @@ function App() {
       return [];
     }
   });
-
-  useEffect(() => {
-    const fetchGenres = async () => {
-      const resGenre = await GetGenres(apiLang);
-      const genres = resGenre.data?.genres || resGenre.genres;
-      if (genres?.length) {
-        setSetlectGenre(genres);
-      }
-    };
-    fetchGenres();
-  }, [apiLang]);
 
   useEffect(() => {
     if (!filmId) return;
@@ -560,14 +545,11 @@ function App() {
       >
         <Header
           setSelectFilm={setSelectFilm}
-          setFindId={setFindId}
-          selectGenre={selectGenre}
-          films={films}
-          setValue={setValue}
           setFilmId={setFilmId}
           setTvId={setTvId}
+          films={films}
+          setValue={setValue}
           value={value}
-          setGenreName={setGenreName}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
@@ -645,11 +627,8 @@ function App() {
             path="/category/:category"
             element={
               <Category
-                setSelectedCategory={setSelectedCategory}
-                findId={findId}
                 setFilmId={setFilmId}
                 setTvId={setTvId}
-                genreName={genreName}
               />
             }
           />
