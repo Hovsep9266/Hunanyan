@@ -84,7 +84,7 @@
     color: white;
     background-color: rgba(0, 0, 0, 0);
     font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
+    font-size: 13px;
     border: 2px solid black;
     height: 40px;
     border-radius: 10px;
@@ -109,7 +109,7 @@
   .savedAccount button,
   .signbutton {
     height: 32px;
-    font-size: 12px;
+    font-size: 11px;
     padding: 4px 6px;
     border-width: 1px;
   }

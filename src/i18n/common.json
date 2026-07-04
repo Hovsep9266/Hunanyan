@@ -35,6 +35,9 @@
     },
     "search": {
       "noFilms": "No films found...",
+      "noResults": "Nothing found...",
+      "movieType": "Movie",
+      "tvType": "TV series",
       "actors": "Actors:"
     },
     "common": {
@@ -183,6 +186,9 @@
     },
     "search": {
       "noFilms": "Фильмы не найдены...",
+      "noResults": "Ничего не найдено...",
+      "movieType": "Фильм",
+      "tvType": "Сериал",
       "actors": "Актёры:"
     },
     "common": {

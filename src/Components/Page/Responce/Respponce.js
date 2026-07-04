@@ -121,6 +121,19 @@ export function normalizeWatchProviders(watchProvidersBlock, uiLang) {
   };
 }
 
+export function GetMultiSearch(query, language = "en-US") {
+  const q = encodeURIComponent(query);
+  return axios
+    .get(
+      `${API_URL}search/multi?api_key=${API_KEY}&language=${language}&query=${q}&include_adult=false`,
+    )
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+      return { results: [] };
+    });
+}
+
 export function GetMovieByQuery(query, language = "en-US") {
   const q = encodeURIComponent(query);
   return axios

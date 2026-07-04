@@ -9,7 +9,7 @@
 }
 
 .notfound-title {
-  font-size: 120px;
+  font-size: 110px;
   font-weight: bold;
   margin: 0;
   color: #ff4040;
@@ -17,12 +17,12 @@
 }
 
 .notfound-subtitle {
-  font-size: 32px;
+  font-size: 29px;
   margin-bottom: 20px;
 }
 
 .notfound-text {
-  font-size: 18px;
+  font-size: 17px;
   margin-bottom: 40px;
   opacity: 0.8;
 }
@@ -30,7 +30,7 @@
 .notfound-btn {
   display: inline-block;
   padding: 12px 25px;
-  font-size: 18px;
+  font-size: 17px;
   color: #fff;
   border: 2px solid #ff4040;
   border-radius: 8px;

@@ -1,6 +1,6 @@
 .MainSearch {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   left: 0;
   width: 100%;
   z-index: 1200;
@@ -9,147 +9,201 @@
 .SearchFilm {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   padding: 8px;
-  border: 2px outset rgb(244, 244, 244);
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.388);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(10, 15, 26, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   position: static;
   width: 100%;
-  max-height: 420px;
+  max-height: 380px;
   overflow-y: auto;
   box-sizing: border-box;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  animation: searchDropdownIn 0.18s ease-out;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.12),
+    0 16px 40px rgba(0, 0, 0, 0.35);
+  animation: searchDropdownIn 0.22s ease-out;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
 }
 
-.filmItem {
+.SearchFilm::-webkit-scrollbar {
+  width: 6px;
+}
+
+.SearchFilm::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+
+.searchItem {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  background-color: #f7f7f7;
-  border: 1px solid #ffffff;
-  padding: 8px 10px;
+  gap: 10px;
+  padding: 7px 9px;
   text-decoration: none;
-  border-radius: 10px;
-  min-height: 72px;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.filmPoster {
-  width: 48px;
-  height: 68px;
+.searchItem:hover,
+.searchItem:focus-visible {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  outline: none;
+}
+
+.searchItem-posterWrap {
+  flex-shrink: 0;
+  width: 40px;
+  height: 58px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.searchItem-poster {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 6px;
-  background-color: #2c2c2c;
-  flex-shrink: 0;
+  display: block;
+  background-color: #1e293b;
 }
 
-.filmItem:hover {
-  cursor: pointer;
-  background-color: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-.nameActor {
-  height: fit-content;
+.searchItem-body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: start;
+  gap: 5px;
   flex: 1;
-  color: #3c3c3c;
-  font-family: 'Courier New', Courier, monospace;
   min-width: 0;
-  gap: 2px;
-  margin-top: 0;
 }
 
-.filmName {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #242424;
-  word-break: break-word;
+.searchItem-title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f1f5f9;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.actors {
-  font-size: 12px;
-  text-decoration-line: none;
-  line-height: 1.2;
-  color: #4f4f4f;
-  word-break: break-word;
-  margin: 0 !important;
+.searchItem-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
 }
 
-.Watch {
-  font-family: 'Courier New', Courier, monospace;
-  border: 2px solid rgb(160, 160, 160);
-  padding: 20px;
-  border-radius: 10px;
+.searchItem-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.searchItem-badge--movie {
+  color: #bfdbfe;
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+}
+
+.searchItem-badge--tv {
+  color: #ddd6fe;
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+}
+
+.searchItem-year {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 400;
 }
 
 .searchEmpty {
-  margin-top: 2px;
-  text-align: left;
-  font-size: 14px;
-  color: white;
-  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 11px;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.searchEmpty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #64748b;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
 @keyframes searchDropdownIn {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-8px) scale(0.98);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (min-width: 993px) {
-  .filmItem {
-    gap: 12px;
-    padding: 8px 10px;
-  }
-
-  .filmPoster {
-    width: 46px;
-    height: 64px;
-  }
-
-  .nameActor {
-    max-width: 100%;
-  }
-
-  .filmName,
-  .actors {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    transform: translateY(0) scale(1);
   }
 }
 
 @media (max-width: 768px) {
   .MainSearch {
-    top: calc(100% + 6px);
+    top: calc(100% + 8px);
   }
 
   .SearchFilm {
-    width: 100%;
-    max-height: 300px;
+    max-height: 260px;
+    padding: 6px;
+    border-radius: 12px;
   }
 
-  .filmName {
-    font-size: 13px;
+  .searchItem {
+    padding: 6px 7px;
+    gap: 9px;
   }
 
-  .actors {
-    font-size: 11px;
+  .searchItem-posterWrap {
+    width: 36px;
+    height: 52px;
+  }
+
+  .searchItem-title {
+    font-size: 12px;
+  }
+
+  .searchItem-badge {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+
+  .searchItem-year {
+    font-size: 10px;
   }
 }

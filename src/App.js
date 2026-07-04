@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { Header } from "./Components/Header/Header";
 import { Film } from "./Components/Film/Film";
@@ -11,7 +11,7 @@ import {
   GetGenres,
   GetImgUrl,
   GetMovieById,
-  GetMovieByQuery,
+  GetMultiSearch,
   GetTVById,
   getTmdbLanguage,
   normalizeWatchProviders,
@@ -331,27 +331,34 @@ function App() {
     if (!value) return;
 
     let id = setTimeout(() => {
-      GetMovieByQuery(value, apiLang)
+      GetMultiSearch(value, apiLang)
         .then((data) => {
-          const list = data?.results || [];
+          const list = (data?.results || []).filter(
+            (item) => item.media_type === "movie" || item.media_type === "tv",
+          );
 
-          const res = list.map((film) => ({
-            id: film.id,
-            name: film.title,
-            year: film.release_date?.slice(0, 4) || "",
-            aka: film.title || t("fallbacks.noTitle"),
-            imgPoster: film.poster_path ? GetImgUrl(film.poster_path) : "",
-            actors: film.original_language || t("fallbacks.unknown"),
-          }));
+          const res = list.map((item) => {
+            const isTv = item.media_type === "tv";
+            const title = isTv ? item.name : item.title;
+            const date = isTv ? item.first_air_date : item.release_date;
+
+            return {
+              id: item.id,
+              media: isTv ? "tv" : "movie",
+              name: title,
+              year: date?.slice(0, 4) || "",
+              aka: title || t("fallbacks.noTitle"),
+              imgPoster: item.poster_path ? GetImgUrl(item.poster_path) : "",
+            };
+          });
 
           setFilms(res);
         })
         .catch((error) => {
-          console.error("Error fetching film:", error);
+          console.error("Error fetching search results:", error);
           setFilms([]);
         });
     }, 1000);
-    console.log("mount", id);
 
     return () => {
       clearTimeout(id);
@@ -477,13 +484,73 @@ function App() {
     location.pathname.startsWith("/film/") || location.pathname.startsWith("/show/");
   const activeTitleBackground =
     (selectFilm?.backdrop || selectFilm?.image || "").replace("/w500", "/original");
-  const appBackgroundImage =
+  const targetBackground =
     isTitlePage && activeTitleBackground
-      ? `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("${activeTitleBackground}")`
-      : `url("${DEFAULT_SITE_BG}")`;
+      ? activeTitleBackground
+      : DEFAULT_SITE_BG;
+
+  const [bgBase, setBgBase] = useState(DEFAULT_SITE_BG);
+  const [bgTop, setBgTop] = useState(null);
+  const [bgTopVisible, setBgTopVisible] = useState(false);
+  const bgTransitionId = useRef(0);
+
+  useEffect(() => {
+    if (targetBackground === bgBase && !bgTop) return;
+    if (bgTop === targetBackground) return;
+
+    const transitionId = ++bgTransitionId.current;
+    const img = new Image();
+
+    const startFade = () => {
+      if (transitionId !== bgTransitionId.current) return;
+      if (targetBackground === bgBase) {
+        setBgTop(null);
+        setBgTopVisible(false);
+        return;
+      }
+      setBgTop(targetBackground);
+      setBgTopVisible(false);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (transitionId !== bgTransitionId.current) return;
+          setBgTopVisible(true);
+        });
+      });
+    };
+
+    img.onload = startFade;
+    img.onerror = startFade;
+    img.src = targetBackground;
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [targetBackground, bgBase, bgTop]);
+
+  const handleBgTransitionEnd = (event) => {
+    if (event.propertyName !== "opacity") return;
+    if (!bgTop || !bgTopVisible) return;
+    setBgBase(bgTop);
+    setBgTop(null);
+    setBgTopVisible(false);
+  };
 
   return (
-    <div className="App" style={{ backgroundImage: appBackgroundImage }}>
+    <div className="App">
+      <div className="App-bg" aria-hidden="true">
+        <div
+          className="App-bgLayer"
+          style={{ backgroundImage: `url("${bgBase}")` }}
+        />
+        {bgTop ? (
+          <div
+            className={`App-bgLayer App-bgLayer--fade${bgTopVisible ? " is-visible" : ""}`}
+            style={{ backgroundImage: `url("${bgTop}")` }}
+            onTransitionEnd={handleBgTransitionEnd}
+          />
+        ) : null}
+      </div>
       <div
         className={
           showSiteBackdrop

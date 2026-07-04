@@ -10,14 +10,14 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <hr />
-            <h2 className="text-xl font-semibold mt-3 text-white">HH-films</h2>
-            <p className="text-sm text-gray-400 max-w-xs mt-2">
+            <h2 className="footer-brand">HH-films</h2>
+            <p className="footer-text">
               {t("header.yourFavorite")}. {t("footer.explore")}
             </p>
           </div>
 
           <div className="folow">
-            <h3 className="text-white font-semibold mb-3">
+            <h3 className="footer-heading">
               {t("footer.followUs")}
             </h3>
             <div className="svg">
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-sm text-gray-500">
+        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
           <nav className="footer-legal" aria-label="Legal">
             <Link to="/about">{t("footer.about")}</Link>
             <span aria-hidden="true"> · </span>

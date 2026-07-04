@@ -81,7 +81,7 @@
     border-radius: 10px;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 13px;
+    font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +97,7 @@
 .langSelect option{
     background: black;
     color: white;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .langDropdown{
@@ -107,7 +107,7 @@
 }
 
 .langArrow{
-  font-size: 12px;
+  font-size: 11px;
   position: absolute;
   right: 10px;
 }
@@ -134,7 +134,7 @@
   text-align: center;
   padding: 0 10px;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -155,7 +155,7 @@
   text-decoration: none;
   color: white;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
+  font-size: 13px;
   border: 2px solid black;
   width: 100%;
   max-width: 280px;
@@ -171,7 +171,7 @@
 .account{
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-size: 18px;
   width: 100%;
   display: flex;
   justify-content: center;

@@ -7,7 +7,7 @@
 .orders-form label {
   display: block;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 13px;
 }
 .orders-form input {
   width: 100%;
@@ -56,7 +56,7 @@
 .Link{
     width: 100%;
     min-height: 40px;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .OrderActions{
@@ -66,7 +66,7 @@
 }
 
 .OrderEmpty{
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   margin-top: 50px;
 }

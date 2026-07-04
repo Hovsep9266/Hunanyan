@@ -9,14 +9,14 @@
 }
 
 .Success h1 {
-    font-size: 48px;
+    font-size: 44px;
     font-family: 'Courier New', Courier, monospace;
     color: #4BB543;
     margin-bottom: 10px;
 }
 
 .successMessage {
-    font-size: 24px;
+    font-size: 22px;
     font-family: 'Courier New', Courier, monospace;
     color: #e2e2e2;
     margin-bottom: 20px;
@@ -31,7 +31,7 @@
   text-decoration: none;
   color: white;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
+  font-size: 13px;
   border: 2px outset black;
   width: 140px;
   height: 40px;
