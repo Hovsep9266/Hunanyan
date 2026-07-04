@@ -3,9 +3,6 @@ import { SearchFilm } from "../SearchFilm/SearchFilm";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useI18n } from "../../i18n/I18nProvider";
-import { Register } from "../Register/Register";
-import HeaderMenu from "./HeaderMenu/HeaderMenu";
-import Profile from "./Profile/Profile";
 
 export const Header = ({
   films,
@@ -20,19 +17,15 @@ export const Header = ({
   setSelectedCategory,
   setSelectFilm,
 }) => {
-  const [showRegister, setShowRegister] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [userAccount, setUserAccount] = useState(null);
   const location = useLocation();
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [showLangMenu, setShowLangMenu] = useState(false);
   const [showMobileCategories, setShowMobileCategories] = useState(false);
   const [isMobileCategoryMode, setIsMobileCategoryMode] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 992 : false,
   );
-  const menuRef = useRef(null);
-  const { t } = useI18n();
+  const langWrapRef = useRef(null);
+  const { t, lang, setLang } = useI18n();
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category.id);
@@ -65,18 +58,15 @@ export const Header = ({
   }, [location.pathname, setSelectedCategory]);
 
   useEffect(() => {
-    if (showMenu) {
-      document.body.classList.add("no-scroll");
-      setShowMobileCategories(false);
-      setTimeout(() => menuRef.current?.focus(), 60);
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-
-    return () => {
-      document.body.classList.remove("no-scroll");
+    if (!showLangMenu) return;
+    const close = (e) => {
+      if (langWrapRef.current && !langWrapRef.current.contains(e.target)) {
+        setShowLangMenu(false);
+      }
     };
-  }, [showMenu]);
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [showLangMenu]);
 
   const clearDetailState = () => {
     setFilmId(false);
@@ -94,7 +84,7 @@ export const Header = ({
             height="180"
             viewBox="0 0 180 180"
             role="img"
-            aria-label="HH logo"
+            aria-label="HH-films logo"
           >
             <defs>
               <linearGradient id="neon" x1="0" x2="1">
@@ -119,10 +109,10 @@ export const Header = ({
                 fontFamily="Montserrat, Inter, sans-serif"
                 fontWeight="800"
                 fontStyle="italic"
-                fontSize="72"
+                fontSize="40"
                 fill="url(#neon)"
               >
-                HH
+                HH-films
               </text>
             </g>
 
@@ -221,26 +211,49 @@ export const Header = ({
             </svg>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setShowMenu((prev) => !prev)}
-            className="menuButton"
-            aria-label={showMenu ? "Close menu" : "Open menu"}
-            aria-expanded={showMenu}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="Outline"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              className="headerIcon"
+          <div className="headerLangWrap" ref={langWrapRef}>
+            <button
+              type="button"
+              className="headerLangButton"
+              onClick={() => setShowLangMenu((prev) => !prev)}
+              aria-label={t("header.langSelectAria")}
+              aria-expanded={showLangMenu}
+              aria-haspopup="listbox"
             >
-              <rect y="11" width="24" height="2" rx="1" />
-              <rect y="4" width="24" height="2" rx="1" />
-              <rect y="18" width="24" height="2" rx="1" />
-            </svg>
-          </button>
+              <span className="headerLangCode">{String(lang).toUpperCase()}</span>
+              <span className="headerLangCaret" aria-hidden>
+                ▾
+              </span>
+            </button>
+            {showLangMenu && (
+              <div className="headerLangMenu" role="listbox" aria-label={t("header.langSelectAria")}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={lang === "en"}
+                  className={`headerLangOption ${lang === "en" ? "is-active" : ""}`}
+                  onClick={() => {
+                    setLang("en");
+                    setShowLangMenu(false);
+                  }}
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={lang === "ru"}
+                  className={`headerLangOption ${lang === "ru" ? "is-active" : ""}`}
+                  onClick={() => {
+                    setLang("ru");
+                    setShowLangMenu(false);
+                  }}
+                >
+                  RU
+                </button>
+              </div>
+            )}
+          </div>
 
           {isMobileCategoryMode && showMobileCategories && (
             <div className="mobileCategoryDropdown">
@@ -264,23 +277,6 @@ export const Header = ({
             </div>
           )}
 
-          {showMenu && (
-            <>
-              <div
-                className={`headerBackdrop ${showMenu ? "show" : ""}`}
-                onClick={() => setShowMenu(false)}
-                aria-hidden="true"
-              />
-              <HeaderMenu
-                showMenu={showMenu}
-                menuRef={menuRef}
-                setShowMenu={setShowMenu}
-                setShowModal={setShowModal}
-                setShowProfile={setShowProfile}
-                userAccount={userAccount}
-              />
-            </>
-          )}
         </div>
       </div>
       <div className={`categoriesBlock ${isMobileCategoryMode ? "hideOnMobile" : ""}`}>
@@ -304,23 +300,6 @@ export const Header = ({
         </div>
       </div>
       <hr />
-      {showModal && (
-        <Register
-          setShowModal={setShowModal}
-          className="registerModal"
-          setUserAccount={setUserAccount}
-          userAccount={userAccount}
-          setShowRegister={setShowRegister}
-          showRegister={showRegister}
-        />
-      )}
-      {showProfile && (
-        <Profile
-          userAccount={userAccount}
-          setUserAccount={setUserAccount}
-          setShowProfile={setShowProfile}
-        />
-      )}
     </header>
   );
 };

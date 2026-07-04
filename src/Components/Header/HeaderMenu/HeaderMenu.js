@@ -136,7 +136,6 @@ const HeaderMenu = ({
         <Link
           to="/orders"
           onClick={() => {
-            window.scrollTo({ top: 630, behavior: "smooth" });
             setShowMenu(false);
           }}
           className="ordersLink"

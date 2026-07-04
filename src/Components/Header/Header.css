@@ -1,5 +1,4 @@
-
-.header{
+.header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -7,7 +6,7 @@
   position: relative;
 }
 
-.headerTop{
+.headerTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,14 +46,14 @@
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.headerLeft{
+.headerLeft {
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
 }
 
-.orderInput{
+.orderInput {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,47 +61,106 @@
   position: relative;
 }
 
-.menuButton{
+.headerLangWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.headerLangButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  gap: 2px;
+  width: 60px;
+  height: 40px;
+  padding: 0 6px;
   border: 2px solid rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
 }
 
-.categoryToggleButton{
+.categoryToggleButton {
   display: none;
   align-items: center;
   justify-content: center;
   width: 42px;
-  height: 42px;
+  height: 40px;
   border: 2px solid rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
 
-.menuButton:hover{
+.headerLangButton:hover {
   background-color: rgba(255, 255, 255, 0.12);
   transition: 0.25s;
 }
 
-.categoryToggleButton:hover{
+.headerLangCode {
+  letter-spacing: 0.02em;
+}
+
+.headerLangCaret {
+  font-size: 9px;
+  opacity: 0.85;
+  margin-top: 1px;
+}
+
+.headerLangMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 100%;
+  z-index: 1003;
+  background: rgba(20, 20, 20, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.headerLangOption {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.headerLangOption:last-child {
+  border-bottom: none;
+}
+
+.headerLangOption:hover,
+.headerLangOption.is-active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.categoryToggleButton:hover {
   background-color: rgba(255, 255, 255, 0.12);
   transition: 0.25s;
 }
 
-.headerIcon{
+.headerIcon {
   fill: rgb(255, 255, 255);
   width: 24px;
   height: 24px;
 }
 
-.mobileCategoryDropdown{
+.mobileCategoryDropdown {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
@@ -116,23 +174,23 @@
   z-index: 1002;
 }
 
-.mobileCategoryTitle{
+.mobileCategoryTitle {
   text-align: left;
   font-size: 20px;
   margin-bottom: 8px;
   font-family: 'Courier New', Courier, monospace;
 }
 
-.mobileCategorys{
+.mobileCategorys {
   margin: 0;
   grid-template-columns: 1fr;
 }
 
-.categoriesBlock.hideOnMobile{
+.categoriesBlock.hideOnMobile {
   display: none;
 }
 
-.ordersLink{
+.ordersLink {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -147,12 +205,12 @@
   border-radius: 10px;
 }
 
-.ordersLink:hover{
+.ordersLink:hover {
   background-color: rgba(102, 102, 102, 0.238);
   transition: 0.5s;
 }
 
-.categorys{
+.categorys {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -160,7 +218,7 @@
   margin: 20px 0;
 }
 
-.genre{
+.genre {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,11 +232,11 @@
   cursor: pointer;
 }
 
-.genre:hover{
+.genre:hover {
   background-color: rgba(0, 0, 0, 0.238);
 }
 
-.activeGenre{
+.activeGenre {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,11 +250,11 @@
   cursor: pointer;
 }
 
-.activeGenre:hover{
+.activeGenre:hover {
   background-color: rgba(255, 255, 255, 0.807);
 }
 
-.HH{
+.HH {
   font-size: clamp(40px, 12vw, 100px);
   font-weight: bold;
   font-style: italic;
@@ -204,7 +262,7 @@
   margin: 0;
 }
 
-.favorite{
+.favorite {
   font-size: 10px;
   font-family: 'Courier New', Courier, monospace;
   position: absolute;
@@ -212,7 +270,7 @@
   bottom: 0;
 }
 
-.SearchMovie{
+.SearchMovie {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -220,28 +278,28 @@
   width: 300px;
 }
 
-.search{
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0);
-    border: 2px solid rgb(160, 160, 160);
-    width: 100%;
-    height: 40px;
-    padding: 5px 10px;
-    color: rgb(160, 160, 160);
-    font-family: 'Courier New', Courier, monospace;
+.search {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid rgb(160, 160, 160);
+  width: 100%;
+  height: 40px;
+  padding: 5px 10px;
+  color: rgb(160, 160, 160);
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.search:hover{
-    border: 2px solid white;
-    background-color: rgba(0, 0, 0, 0.125);
-    transition: 1s;
+.search:hover {
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.125);
+  transition: 1s;
 }
 
-hr{
+hr {
   width: 100%;
 }
 
-.account{
+.account {
   height: 40px;
   display: flex;
   justify-content: flex-start;
@@ -250,11 +308,11 @@ hr{
   font-family: 'Courier New', Courier, monospace;
 }
 
-.registerLink{
+.registerLink {
   cursor: pointer;
 }
 
-.registerModal{
+.registerModal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -269,10 +327,10 @@ hr{
 }
 
 
-.headerBackdrop{
+.headerBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -280,13 +338,13 @@ hr{
   z-index: 1000;
 }
 
-.headerBackdrop.show{
+.headerBackdrop.show {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-body.no-scroll{
+body.no-scroll {
   overflow: hidden;
 }
 
@@ -345,20 +403,20 @@ body.no-scroll{
     max-width: calc(100% - 104px);
   }
 
-  .menuButton {
-    width: 44px;
+  .headerLangButton {
+    width: 60px;
     height: 44px;
     flex-shrink: 0;
   }
 
   .categoryToggleButton {
     display: flex;
-    width: 44px;
+    width: 60px;
     height: 44px;
     flex-shrink: 0;
   }
 
-  .mobileCategoryDropdown{
+  .mobileCategoryDropdown {
     right: 0;
     left: 0;
     width: 100%;

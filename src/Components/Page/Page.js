@@ -34,7 +34,6 @@ function Page({ setValue, setFilmId, setTvId, setSelectFilm, page, setPage }) {
     };
 
     load();
-    window.scrollTo({ top: 630, behavior: "smooth" });
     return () => {
       cancelled = true;
     };
@@ -58,7 +57,6 @@ function Page({ setValue, setFilmId, setTvId, setSelectFilm, page, setPage }) {
               setFilmId(film.id);
               setTvId?.(undefined);
               setSelectFilm(null);
-              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <img

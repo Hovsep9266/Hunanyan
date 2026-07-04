@@ -33,7 +33,6 @@ export const SearchFilm = ({
     if (typeof setSelectedCategory === "function") {
       setSelectedCategory(null);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

@@ -50,13 +50,13 @@ export function TvBrowsePage({ listType, setFilmId, setTvId, setSelectFilm }) {
         const resList =
           listType === "anime"
             ? await Promise.all([
-                GetDiscoverAnimeTV(page, apiLang),
-                GetDiscoverAnimeMovies(page, apiLang),
-              ])
+              GetDiscoverAnimeTV(page, apiLang),
+              GetDiscoverAnimeMovies(page, apiLang),
+            ])
             : await Promise.all([
-                GetTVPopular(page, apiLang),
-                GetTVTopRated(page, apiLang),
-              ]);
+              GetTVPopular(page, apiLang),
+              GetTVTopRated(page, apiLang),
+            ]);
 
         if (cancelled) return;
 
@@ -65,10 +65,10 @@ export function TvBrowsePage({ listType, setFilmId, setTvId, setSelectFilm }) {
           payloads.map((p) =>
             Array.isArray(p.results)
               ? p.results.map((x) => ({
-                  ...x,
-                  media_type:
-                    x.media_type || (x.title ? "movie" : "tv"),
-                }))
+                ...x,
+                media_type:
+                  x.media_type || (x.title ? "movie" : "tv"),
+              }))
               : [],
           ),
         );
@@ -92,7 +92,6 @@ export function TvBrowsePage({ listType, setFilmId, setTvId, setSelectFilm }) {
     };
 
     load();
-    window.scrollTo({ top: 630, behavior: "smooth" });
     return () => {
       cancelled = true;
     };
@@ -124,7 +123,6 @@ export function TvBrowsePage({ listType, setFilmId, setTvId, setSelectFilm }) {
                 setFilmId(false);
                 setTvId(String(show.id));
               }
-              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <img

@@ -46,7 +46,6 @@ export const Category = ({ findId, setFilmId, setTvId, genreName }) => {
             key={film.id}
             className="film-item"
             onClick={() => {
-              window.scrollTo({ top: 630, behavior: "smooth" });
               setFilmId(film.id);
               setTvId?.(undefined);
             }}
@@ -65,7 +64,6 @@ export const Category = ({ findId, setFilmId, setTvId, genreName }) => {
         to="/"
         onClick={() => {
           setFilmId(false);
-          window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
         <svg

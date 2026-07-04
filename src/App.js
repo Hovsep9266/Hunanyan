@@ -21,6 +21,9 @@ import Orders from "./Components/Orders/Orders";
 import { ActorPage } from "./Components/Actor/ActorPage";
 import { TvBrowsePage } from "./Components/Tv/TvBrowsePage";
 
+import { AboutPage } from "./Components/Legal/AboutPage";
+import { PrivacyPage } from "./Components/Legal/PrivacyPage";
+import { TermsPage } from "./Components/Legal/TermsPage";
 import { useI18n } from "./i18n/I18nProvider";
 
 function setMetaContent(attr, key, value) {
@@ -38,7 +41,7 @@ function App() {
   const location = useLocation();
   const { t, lang } = useI18n();
   const apiLang = getTmdbLanguage(lang);
-  const DEFAULT_SITE_BG = "https://wallpapercave.com/wp/wp9049784.jpg";
+  const DEFAULT_SITE_BG = "https://getwallpapers.com/wallpaper/full/0/7/9/81674.jpg";
   // const DEFAULT_SITE_BG = "https://wallpapercave.com/wp/wp1913866.jpg";
   const showSiteBackdrop =
     location.pathname.startsWith("/film/") ||
@@ -357,7 +360,7 @@ function App() {
 
   useEffect(() => {
     const isRu = lang === "ru";
-    const baseTitle = isRu ? "HH films" : "HH films";
+    const baseTitle = "HH-films";
     const pathname = location.pathname;
     let title = baseTitle;
     let description = isRu
@@ -365,30 +368,45 @@ function App() {
       : "Movie, TV series, and anime catalog with trailers, cast pages, and legal watch options.";
 
     if (pathname.startsWith("/tv")) {
-      title = isRu ? "Сериалы - HH films" : "TV Series - HH films";
+      title = isRu ? "Сериалы - HH-films" : "TV Series - HH-films";
       description = isRu
         ? "Популярные и топовые сериалы с трейлерами и официальными сервисами просмотра."
         : "Popular and top-rated TV series with trailers and official streaming providers.";
     } else if (pathname.startsWith("/anime")) {
-      title = isRu ? "Аниме - HH films" : "Anime - HH films";
+      title = isRu ? "Аниме - HH-films" : "Anime - HH-films";
       description = isRu
         ? "Большой каталог аниме-сериалов и аниме-фильмов с трейлерами и ссылками где смотреть."
         : "Large catalog of anime series and anime movies with trailers and watch provider links.";
     } else if (pathname.startsWith("/film/") || pathname.startsWith("/show/")) {
       const itemName = selectFilm?.name;
       if (itemName) {
-        title = `${itemName} - HH films`;
+        title = `${itemName} - HH-films`;
         description = isRu
           ? `${itemName}: трейлер, актёры и легальные сервисы просмотра.`
           : `${itemName}: trailer, cast, and legal watch providers.`;
       } else {
-        title = isRu ? "Карточка тайтла - HH films" : "Title page - HH films";
+        title = isRu ? "Карточка тайтла - HH-films" : "Title page - HH-films";
       }
     } else if (pathname.startsWith("/actor/")) {
-      title = isRu ? "Актёр - HH films" : "Actor - HH films";
+      title = isRu ? "Актёр - HH-films" : "Actor - HH-films";
       description = isRu
         ? "Профиль актёра и фильмы с его участием."
         : "Actor profile and movies featuring this cast member.";
+    } else if (pathname === "/about") {
+      title = isRu ? "О проекте - HH-films" : "About - HH-films";
+      description = isRu
+        ? "О HH-films, атрибуция TMDB и контакты."
+        : "About HH-films, TMDB attribution, and contact.";
+    } else if (pathname === "/privacy") {
+      title = isRu ? "Конфиденциальность - HH-films" : "Privacy - HH-films";
+      description = isRu
+        ? "Политика конфиденциальности HH-films."
+        : "HH-films Privacy Policy.";
+    } else if (pathname === "/terms") {
+      title = isRu ? "Условия - HH-films" : "Terms - HH-films";
+      description = isRu
+        ? "Условия использования HH-films."
+        : "HH-films Terms of Use.";
     }
 
     document.title = title;
@@ -535,6 +553,10 @@ function App() {
               />
             }
           />
+
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
 
           <Route path="/show/:tvId" element={<TvShowRoute />} />
 

@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nProvider";
 
 export default function Footer() {
@@ -9,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <hr />
-            <h2 className="text-xl font-semibold mt-3 text-white">HH Films</h2>
+            <h2 className="text-xl font-semibold mt-3 text-white">HH-films</h2>
             <p className="text-sm text-gray-400 max-w-xs mt-2">
               {t("header.yourFavorite")}. {t("footer.explore")}
             </p>
@@ -93,8 +94,15 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-10 pt-6 text-center text-sm text-gray-500">
-          <p>
-            © {new Date().getFullYear()} HH Films. {t("footer.rights")}
+          <nav className="footer-legal" aria-label="Legal">
+            <Link to="/about">{t("footer.about")}</Link>
+            <span aria-hidden="true"> · </span>
+            <Link to="/privacy">{t("footer.privacy")}</Link>
+            <span aria-hidden="true"> · </span>
+            <Link to="/terms">{t("footer.terms")}</Link>
+          </nav>
+          <p className="footer-copy">
+            © {new Date().getFullYear()} HH-films. {t("footer.rights")}
           </p>
         </div>
       </div>

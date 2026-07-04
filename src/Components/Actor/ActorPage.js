@@ -141,7 +141,6 @@ export const ActorPage = ({ setFilmId, setTvId, setSelectFilm }) => {
                 setSelectFilm(null);
                 setFilmId(String(film.id));
                 setTvId?.(undefined);
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
               {film.poster_path ? (

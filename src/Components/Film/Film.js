@@ -28,7 +28,7 @@ export const Film = ({
     if (!raw) return "";
     try {
       const url = new URL(raw);
-      url.searchParams.set("utm_source", "hh_films");
+      url.searchParams.set("utm_source", "hh-films");
       url.searchParams.set("utm_medium", "referral");
       url.searchParams.set("utm_campaign", mediaType === "tv" ? "watch_tv" : "watch_movie");
       return url.toString();
@@ -413,7 +413,6 @@ export const Film = ({
                 to={isTv ? `/show/${sid}` : `/film/${sid}`}
                 onClick={() => {
                   setSelectFilm(null);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                   if (isTv) {
                     setFilmId?.(false);
                     setTvId?.(String(sid));
@@ -438,7 +437,6 @@ export const Film = ({
           setFilmId(false);
           setTvId?.(undefined);
           setValue("");
-          window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
         <svg

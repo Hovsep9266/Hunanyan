@@ -72,9 +72,6 @@ export default function Orders({ save, setSave, setFilmId, setTvId }) {
       <Link
         className="backSvg"
         to="/"
-        onClick={() => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
       >
         <svg
           className="back"

@@ -13,7 +13,8 @@
       "navMovies": "Movies",
       "navTv": "TV series",
       "navAnime": "Anime",
-      "mediaNavAria": "Browse by type"
+      "mediaNavAria": "Browse by type",
+      "langSelectAria": "Choose interface language"
     },
     "profile": {
       "title": "Profile",
@@ -35,22 +36,19 @@
     "search": {
       "noFilms": "No films found...",
       "actors": "Actors:"
-    }
-    ,
+    },
     "common": {
       "loading": "Loading...",
       "back": "Back",
       "prev": "Prev",
       "next": "Next",
-      "watchHeading": "Watch movies online on HH",
+      "watchHeading": "Watch movies online on HH-films",
       "goHome": "Go to Home"
-    }
-    ,
+    },
     "category": {
       "select": "Select a category",
       "moviesIn": "Movies in {genre} Category"
-    }
-    ,
+    },
     "notFound": {
       "title": "Page Not Found",
       "subtitle": "404",
@@ -72,7 +70,10 @@
     "footer": {
       "explore": "Explore thousands of movies, discover genres, and enjoy the best cinema moments.",
       "followUs": "Follow Us",
-      "rights": "All rights reserved."
+      "rights": "All rights reserved.",
+      "about": "About",
+      "privacy": "Privacy",
+      "terms": "Terms"
     },
     "auth": {
       "loginTitle": "Login",
@@ -96,8 +97,7 @@
       "placeholder": "••••••",
       "send": "SEND",
       "error": "Invalid code"
-    }
-    ,
+    },
     "film": {
       "name": "Name",
       "productions": "Productions",
@@ -124,27 +124,44 @@
       "unknown": "Unknown",
       "similar": "SIMILAR",
       "runtimeMinutes": "{minutes} min"
-    }
-    ,
+    },
     "actor": {
       "films": "Films",
       "biography": "Biography",
       "asCharacter": "as {character}",
       "noFilms": "No films listed for this actor.",
       "notFound": "Actor could not be loaded."
-    }
-    ,
+    },
     "tv": {
       "seriesHeading": "Popular TV series",
       "animeHeading": "Anime series",
       "seasonsCount": "{n} seasons",
       "dataNote": "Series data from TMDB (includes IMDb id when available)."
-    }
-    ,
+    },
     "fallbacks": {
       "noTitle": "No title",
       "unknown": "Unknown",
       "noDescription": "No description available"
+    },
+    "legal": {
+      "aboutTitle": "About HH-films",
+      "aboutIntro": "HH-films is a movie, TV series, and anime catalog with trailers, cast pages, and links to legal streaming options.",
+      "tmdbTitle": "TMDB attribution",
+      "tmdbText": "This product uses the TMDB API but is not endorsed or certified by TMDB. Movie and TV data, posters, and images are provided by TMDB.",
+      "privacyTitle": "Privacy Policy",
+      "privacyIntro": "This page describes how HH-films handles information when you use the site.",
+      "termsTitle": "Terms of Use",
+      "termsIntro": "By using HH-films you agree to the following terms.",
+      "dataTitle": "Data we store",
+      "dataText": "Saved films and account details you enter are stored locally in your browser (localStorage). We do not sell your personal data.",
+      "cookiesTitle": "Analytics",
+      "cookiesText": "If Google Analytics is enabled, anonymous usage statistics may be collected to improve the site.",
+      "useTitle": "Acceptable use",
+      "useText": "Use HH-films for personal, non-commercial browsing. Do not attempt to disrupt the service or scrape it at abusive rates.",
+      "contentTitle": "Third-party content",
+      "contentText": "Trailers, metadata, and watch links come from third parties (including TMDB and streaming providers). HH-films does not host full movies or series.",
+      "contactTitle": "Contact",
+      "contactText": "Questions about HH-films? Reach out via the social links in the footer when available."
     }
   },
   "ru": {
@@ -161,27 +178,25 @@
       "navMovies": "Фильмы",
       "navTv": "Сериалы",
       "navAnime": "Аниме",
-      "mediaNavAria": "Разделы каталога"
+      "mediaNavAria": "Разделы каталога",
+      "langSelectAria": "Выбор языка интерфейса"
     },
     "search": {
       "noFilms": "Фильмы не найдены...",
       "actors": "Актёры:"
-    }
-    ,
+    },
     "common": {
       "loading": "Загрузка...",
       "back": "Назад",
       "prev": "Назад",
       "next": "Дальше",
-      "watchHeading": "Смотрите фильмы онлайн на HH",
+      "watchHeading": "Смотрите фильмы онлайн на HH-films",
       "goHome": "Перейти домой"
-    }
-    ,
+    },
     "category": {
       "select": "Выберите категорию",
       "moviesIn": "Фильмы в категории {genre}"
-    }
-    ,
+    },
     "notFound": {
       "title": "Страница не найдена",
       "subtitle": "404",
@@ -220,7 +235,10 @@
     "footer": {
       "explore": "Исследуйте тысячи фильмов, откройте жанры и наслаждайтесь лучшими моментами кино.",
       "followUs": "Следите за нами",
-      "rights": "Все права защищены."
+      "rights": "Все права защищены.",
+      "about": "О проекте",
+      "privacy": "Конфиденциальность",
+      "terms": "Условия"
     },
     "auth": {
       "loginTitle": "Вход",
@@ -244,8 +262,7 @@
       "placeholder": "••••••",
       "send": "ОТПРАВИТЬ",
       "error": "Неверный код"
-    }
-    ,
+    },
     "film": {
       "name": "Название",
       "productions": "Производство",
@@ -272,28 +289,44 @@
       "unknown": "Неизвестно",
       "similar": "ПОХОЖИЕ",
       "runtimeMinutes": "{minutes} мин"
-    }
-    ,
+    },
     "actor": {
       "films": "Фильмы",
       "biography": "Биография",
       "asCharacter": "в роли {character}",
       "noFilms": "Для этого актёра нет фильмов в списке.",
       "notFound": "Не удалось загрузить страницу актёра."
-    }
-    ,
+    },
     "tv": {
       "seriesHeading": "Популярные сериалы",
       "animeHeading": "Аниме-сериалы",
       "seasonsCount": "{n} сезонов",
       "dataNote": "Данные сериалов — TMDB (при наличии указан IMDb id)."
-    }
-    ,
+    },
     "fallbacks": {
       "noTitle": "Без названия",
       "unknown": "Неизвестно",
       "noDescription": "Описание недоступно"
+    },
+    "legal": {
+      "aboutTitle": "О проекте HH-films",
+      "aboutIntro": "HH-films — каталог фильмов, сериалов и аниме с трейлерами, страницами актёров и ссылками на легальные сервисы просмотра.",
+      "tmdbTitle": "Атрибуция TMDB",
+      "tmdbText": "Продукт использует API TMDB, но не одобрен и не сертифицирован TMDB. Данные о фильмах и сериалах, постеры и изображения предоставлены TMDB.",
+      "privacyTitle": "Политика конфиденциальности",
+      "privacyIntro": "На этой странице описано, как HH-films обрабатывает информацию при использовании сайта.",
+      "termsTitle": "Условия использования",
+      "termsIntro": "Используя HH-films, вы соглашаетесь с условиями ниже.",
+      "dataTitle": "Какие данные хранятся",
+      "dataText": "Сохранённые фильмы и данные аккаунта хранятся локально в браузере (localStorage). Мы не продаём персональные данные.",
+      "cookiesTitle": "Аналитика",
+      "cookiesText": "При включённой Google Analytics могут собираться анонимная статистика использования для улучшения сайта.",
+      "useTitle": "Допустимое использование",
+      "useText": "Используйте HH-films для личного некоммерческого просмотра. Не нарушайте работу сервиса и не злоупотребляйте автоматическим сбором данных.",
+      "contentTitle": "Контент третьих сторон",
+      "contentText": "Трейлеры, метаданные и ссылки на просмотр поступают от третьих лиц (включая TMDB и стриминговые сервисы). HH-films не размещает полные фильмы или сериалы.",
+      "contactTitle": "Контакты",
+      "contactText": "Вопросы по HH-films? Свяжитесь через соцсети в футере, когда ссылки будут добавлены."
     }
   }
 }
-
